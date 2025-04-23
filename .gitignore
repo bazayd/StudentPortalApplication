@@ -1,7 +1,9 @@
 # Default ignored files
 /shelf/
 /.idea/workspace.xml
-.idea/
 
-#Ignore application.properties
+# Ignore application.properties everywhere
 application.properties
+
+# Ignore IntelliJ IDEA folder globally
+.idea/
