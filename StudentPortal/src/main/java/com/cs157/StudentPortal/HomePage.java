@@ -9,6 +9,6 @@ public class HomePage {
 
     @GetMapping("/")
     public String greeting() {
-        return "index";
+        return "redirect:/StudentLogin.html";
     }
 }
