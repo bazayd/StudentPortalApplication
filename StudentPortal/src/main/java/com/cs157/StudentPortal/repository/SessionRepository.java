@@ -6,18 +6,36 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import com.cs157.StudentPortal.model.Students;
 
-public class SessionRepository {
-    /* 
+@Repository
+public class SessionRepository implements StudentsDAO {
     private final JdbcTemplate jdbcTemplate;
 
     public SessionRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    boolean studentLogin(String id, String password) {
-        //String sql = "SELECT 1 FROM Students WHERE StudentID = ? AND Password = ?";
-        //return jdbcTemplate.query(sql,studentsRowMapper());
-        return true;
-    }*/
+    public boolean studentLogin(int id, String password) {
+        String sql = "SELECT COUNT(*) FROM Students WHERE StudentID = ? AND Password = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id, password);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public Students findById(int StudentID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+    @Override
+    public List<Students> findAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
+
+    @Override
+    public int deleteById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    }
 
 }
