@@ -3,6 +3,8 @@ package com.cs157.StudentPortal.controller;
 import com.cs157.StudentPortal.model.Students;
 import com.cs157.StudentPortal.repository.SessionRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,21 @@ public class SessionController {
     }
 
     @PostMapping("/student-login")
-    Boolean studentLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password){
-        return repository.studentLogin(ID, Password);
+    String studentLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session){
+        if(repository.studentLogin(ID, Password)){
+            session.setAttribute("sessionUserID", ID);
+        } else {
+            session.invalidate();
+        }
+        return "<script>window.location.href = \"StudentLogin.html\";</script>";
+    }
+
+    @GetMapping("/session")
+    Object sessionCheck(HttpSession session){
+        var id = session.getAttribute("sessionUserID");
+        if(id==null){
+            return null;
+        }
+        return repository.findById((int)id);
     }
 }

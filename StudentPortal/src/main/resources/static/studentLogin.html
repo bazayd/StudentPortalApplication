@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="session.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Student Login</title>
 </head>
 <body>
     <h1>Enter Student ID and Password</h1>
-    <form action="/student-login" method="post">
+    <form action="/student-login" method="post" onsubmit="">
         <label for="ID">Student ID:</label>
-        <input type="text" id="ID" name="ID"><br><br>
+        <input type="number" id="ID" name="ID"><br><br>
         <label for="Password">Password:</label>
         <input type="text" id="Password" name="Password"><br><br>
         <input type="submit" value="Submit">
     </form>
-
-    
+    <body>
+        Logged In As: <script>getSession().name</script>
+    </body>
 </body>
 </html>

@@ -22,8 +22,8 @@ public class SessionRepository implements StudentsDAO {
 
     @Override
     public Students findById(int StudentID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        String sql = "SELECT StudentID, Name, Major FROM Students WHERE StudentID = ?";
+        return jdbcTemplate.queryForObject(sql, studentsRowMapper(), StudentID);
     }
 
     @Override
@@ -36,6 +36,16 @@ public class SessionRepository implements StudentsDAO {
     public int deleteById(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    }
+
+    private RowMapper<Students> studentsRowMapper() {
+        return (rs, rowNum) -> {
+            Students students = new Students();
+            students.setStudentID(rs.getInt("StudentID"));
+            students.setName(rs.getString("Name"));
+            students.setMajor(rs.getString("Major"));
+            return students;
+        };
     }
 
 }

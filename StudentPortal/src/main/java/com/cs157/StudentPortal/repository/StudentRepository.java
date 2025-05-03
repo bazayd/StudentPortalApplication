@@ -3,6 +3,8 @@ package com.cs157.StudentPortal.repository;
 import org.springframework.jdbc.core.JdbcTemplate; // For accessing databases through JDBC in Spring.
 import org.springframework.jdbc.core.RowMapper; // mapping rows of ResultSet on per-row basis
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
 import java.util.List;
 import com.cs157.StudentPortal.model.Students;
 
@@ -16,7 +18,9 @@ public class StudentRepository implements StudentsDAO{
 
     @Override
     public Students findById(int StudentID) {
-        return null;
+        System.out.println(StudentID);
+        String sql = "SELECT StudentID, Name, Major FROM Students WHERE StudentID = ?";
+        return jdbcTemplate.queryForObject(sql, studentsRowMapper(), StudentID);
     }
 
     public List<Students> findAll() {
