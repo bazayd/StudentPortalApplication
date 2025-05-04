@@ -20,10 +20,17 @@ public class SessionRepository implements StudentsDAO {
         return count != null && count > 0;
     }
 
+    public boolean professorLogin(int id, String password) {
+        String sql = "SELECT COUNT(*) FROM Professors WHERE ProfessorID = ? AND Password = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id, password);
+        return count != null && count > 0;
+    }
+
+    
     @Override
     public Students findById(int StudentID) {
-        String sql = "SELECT StudentID, Name, Major FROM Students WHERE StudentID = ?";
-        return jdbcTemplate.queryForObject(sql, studentsRowMapper(), StudentID);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
     @Override

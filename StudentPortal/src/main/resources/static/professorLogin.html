@@ -4,19 +4,19 @@
 <script>populateUserData()</script>
 <head>
     <meta charset="UTF-8">
-    <title>Student Login</title>
+    <title>Professor Login</title>
 </head>
 <body>
-    <h1>Enter Student ID and Password</h1>
-    <form action="/student-login" method="post" onsubmit="">
-        <label for="ID">Student ID:</label>
+    <h1>Enter Professor ID and Password</h1>
+    <form action="/professor-login" method="post" onsubmit="">
+        <label for="ID">Professor ID:</label>
         <input type="number" id="ID" name="ID"><br><br>
         <label for="Password">Password:</label>
         <input type="text" id="Password" name="Password"><br><br>
         <input type="submit" value="Submit">
     </form>
     <body>
-        Logged In As: <span id="studentName"></span>
+        Logged In As: <span id="professorName"></span>
     </body>
 </body>
 </html>

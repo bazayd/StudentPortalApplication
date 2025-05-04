@@ -13,7 +13,17 @@ public class HomePage {
 
     @GetMapping("/")
     public String greeting() {
+        return "redirect:/dashboard.html";
+    }
+
+    @GetMapping("/studentLogin")
+    public String sLogin() {
         return "redirect:/studentLogin.html";
+    }
+
+    @GetMapping("/professorLogin")
+    public String pLogin() {
+        return "redirect:/professorLogin.html";
     }
 
 }

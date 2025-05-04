@@ -26,15 +26,19 @@ public class SessionController {
         } else {
             session.invalidate();
         }
-        return "<script>window.location.href = \"StudentLogin.html\";</script>";
+        var redirectTo = "studentLogin.html";
+        return "<script>window.location.href = \""+redirectTo+"\";</script>";
     }
 
-    @GetMapping("/session")
-    Object sessionCheck(HttpSession session){
-        var id = session.getAttribute("sessionUserID");
-        if(id==null){
-            return null;
+    @PostMapping("/professor-login")
+    String professorLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session){
+        if(repository.professorLogin(ID, Password)){
+            session.setAttribute("sessionUserID", ID);
+        } else {
+            session.invalidate();
         }
-        return repository.findById((int)id);
+        var redirectTo = "professorLogin.html";
+        return "<script>window.location.href = \""+redirectTo+"\";</script>";
     }
+
 }
