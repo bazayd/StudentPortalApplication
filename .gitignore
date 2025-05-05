@@ -2,8 +2,6 @@
 /shelf/
 /.idea/workspace.xml
 
-# Ignore application.properties everywhere
-application.properties
 
 # Ignore IntelliJ IDEA folder globally
 .idea/
