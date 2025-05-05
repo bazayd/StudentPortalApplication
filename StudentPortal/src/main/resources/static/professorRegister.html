@@ -34,6 +34,7 @@
             });
 
             const result = await response.json();
+            document.getElementById("resultMessage").textContent = "Successfully Created Your Account! Your ID is: "+result;
         });
     </script>
     <script src="session.js"></script>

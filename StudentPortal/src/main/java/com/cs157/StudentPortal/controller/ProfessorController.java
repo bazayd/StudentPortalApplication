@@ -1,8 +1,7 @@
 package com.cs157.StudentPortal.controller;
 
 import com.cs157.StudentPortal.model.Students;
-import com.cs157.StudentPortal.repository.ProfessorRepository;
-import com.cs157.StudentPortal.repository.StudentRepository;
+import com.cs157.StudentPortal.repository.ProfessorsImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -14,9 +13,9 @@ import java.util.List;
 @RestController
 class ProfessorController {
 
-    private final ProfessorRepository repository;
+    private final ProfessorsImpl repository;
 
-    ProfessorController(ProfessorRepository repository) {
+    ProfessorController(ProfessorsImpl repository) {
         this.repository = repository;
     }
 
@@ -27,6 +26,7 @@ class ProfessorController {
         if(id==null){
             return 0;
         }
+    
         return repository.professorDetails((int)id);
     }
     

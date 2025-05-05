@@ -1,7 +1,7 @@
 package com.cs157.StudentPortal.controller;
 
 import com.cs157.StudentPortal.model.Students;
-import com.cs157.StudentPortal.repository.StudentRepository;
+import com.cs157.StudentPortal.repository.StudentsImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -13,17 +13,12 @@ import java.util.List;
 @RestController
 class StudentController {
 
-    private final StudentRepository repository;
+    private final StudentsImpl repository;
 
-    StudentController(StudentRepository repository) {
+    StudentController(StudentsImpl repository) {
         this.repository = repository;
     }
 
-    @GetMapping("/students")
-    List<Students> all(){
-        System.out.println("Retrieving All Students");
-        return repository.findAll();
-    }
 
     @GetMapping("/student-details")
     Object studentSession(HttpSession session){

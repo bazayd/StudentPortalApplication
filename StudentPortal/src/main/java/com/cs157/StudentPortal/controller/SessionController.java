@@ -43,12 +43,12 @@ public class SessionController {
 
     
     @PostMapping("/student-register")
-    Boolean studentRegister(@RequestParam("Major") String Name, @RequestParam("Major") String Major, @RequestParam("Password") String Password, HttpSession session){
+    Integer studentRegister(@RequestParam("Name") String Name, @RequestParam("Major") String Major, @RequestParam("Password") String Password, HttpSession session){
         return repository.studentRegister(Name, Major, Password);
     }
 
     @PostMapping("/professor-register")
-    Boolean professorRegister(@RequestParam("Name") String Name, @RequestParam("Department") String Department, @RequestParam("Password") String Password, HttpSession session){
+    Integer professorRegister(@RequestParam("Name") String Name, @RequestParam("Department") String Department, @RequestParam("Password") String Password, HttpSession session){
         return repository.professorRegister(Name, Department, Password);
     }
     

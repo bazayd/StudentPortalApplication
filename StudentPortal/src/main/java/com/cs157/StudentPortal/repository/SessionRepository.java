@@ -2,12 +2,17 @@ package com.cs157.StudentPortal.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate; // For accessing databases through JDBC in Spring.
 import org.springframework.jdbc.core.RowMapper; // mapping rows of ResultSet on per-row basis
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import java.sql.Statement;  // 
+
+import java.sql.PreparedStatement;
 import java.util.List;
 import com.cs157.StudentPortal.model.Students;
 
 @Repository
-public class SessionRepository implements StudentsDAO {
+public class SessionRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public SessionRepository(JdbcTemplate jdbcTemplate) {
@@ -29,47 +34,44 @@ public class SessionRepository implements StudentsDAO {
 
 
 
-    public boolean studentRegister(String name, String major, String password) {
+    public Integer studentRegister(String name, String major, String password) { 
         String sql = "INSERT INTO Students (Name, Major, Password) VALUES (?, ?, ?)";
-        Integer count = jdbcTemplate.update(sql, name, major, password);
-        return count != null && count > 0;
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int count = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
+            ps.setString(2, major);
+            ps.setString(3, password);
+            return ps;
+        }, keyHolder);
+
+        if (count > 0) {
+            Number key = keyHolder.getKey();
+            if (key != null) {
+                return key.intValue();
+            }
+        }
+        return -1;
     }
 
-    public boolean professorRegister(String name, String department, String password) {
+    public Integer professorRegister(String name, String department, String password) {
         String sql = "INSERT INTO Professors (Name, Department, Password) VALUES (?, ?, ?)";
-        Integer count = jdbcTemplate.update(sql, name, department, password);
-        return count != null && count > 0;
-    }
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int count = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
+            ps.setString(2, department);
+            ps.setString(3, password);
+            return ps;
+        }, keyHolder);
 
-
-
-    
-    @Override
-    public Students findById(int StudentID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
-    }
-
-    @Override
-    public List<Students> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public int deleteById(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-    }
-
-    private RowMapper<Students> studentsRowMapper() {
-        return (rs, rowNum) -> {
-            Students students = new Students();
-            students.setStudentID(rs.getInt("StudentID"));
-            students.setName(rs.getString("Name"));
-            students.setMajor(rs.getString("Major"));
-            return students;
-        };
+        if (count > 0) {
+            Number key = keyHolder.getKey();
+            if (key != null) {
+                return key.intValue();
+            }
+        }
+        return -1;
     }
 
 }

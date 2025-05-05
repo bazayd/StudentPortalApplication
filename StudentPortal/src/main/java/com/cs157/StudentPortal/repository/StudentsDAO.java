@@ -5,9 +5,13 @@ import java.util.List;
 
 public interface StudentsDAO {
 
-    Students findById(int StudentID);
+    void addStudent(Students student);
 
-    List<Students> findAll();
+    Students getStudentById(int StudentID);
 
-    int deleteById(int id);
+    List<Students> getAllStudents();
+
+    int deleteStudent(int StudentID);
+
+    void updateStudent(Students student);
 }
