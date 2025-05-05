@@ -21,10 +21,6 @@ public class StudentRepository implements StudentsDAO{
         return jdbcTemplate.queryForObject(sql, studentsRowMapper(), StudentID);
     }
     
-    public Students professorDetails(int ProfessorID) {
-        String sql = "SELECT Professors, Name, Department FROM Students WHERE StudentID = ?";
-        return jdbcTemplate.queryForObject(sql, studentsRowMapper(), ProfessorID);
-    }
 
     @Override
     public Students findById(int StudentID) {

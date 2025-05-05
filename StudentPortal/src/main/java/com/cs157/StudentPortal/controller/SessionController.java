@@ -33,12 +33,24 @@ public class SessionController {
     @PostMapping("/professor-login")
     String professorLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session){
         if(repository.professorLogin(ID, Password)){
-            session.setAttribute("sessionUserID", ID);
+            session.setAttribute("sessionProfessorID", ID);
         } else {
             session.invalidate();
         }
         var redirectTo = "professorLogin.html";
         return "<script>window.location.href = \""+redirectTo+"\";</script>";
     }
+
+    
+    @PostMapping("/student-register")
+    Boolean studentRegister(@RequestParam("Major") String Name, @RequestParam("Major") String Major, @RequestParam("Password") String Password, HttpSession session){
+        return repository.studentRegister(Name, Major, Password);
+    }
+
+    @PostMapping("/professor-register")
+    Boolean professorRegister(@RequestParam("Name") String Name, @RequestParam("Department") String Department, @RequestParam("Password") String Password, HttpSession session){
+        return repository.professorRegister(Name, Department, Password);
+    }
+    
 
 }

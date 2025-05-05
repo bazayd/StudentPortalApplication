@@ -11,11 +11,11 @@ import java.util.List;
 
 
 @RestController
-class StudentsController {
+class StudentController {
 
     private final StudentRepository repository;
 
-    StudentsController(StudentRepository repository) {
+    StudentController(StudentRepository repository) {
         this.repository = repository;
     }
 
@@ -29,19 +29,12 @@ class StudentsController {
     Object studentSession(HttpSession session){
         var id = session.getAttribute("sessionUserID");
         if(id==null){
-            return null;
+            return 0;
         }
         return repository.studentDetails((int)id);
     }
 
-    @GetMapping("/professor-details")
-    Object professorSession(HttpSession session){
-        var id = session.getAttribute("sessionUserID");
-        if(id==null){
-            return null;
-        }
-        return repository.professorDetails((int)id);
-    }
+    
 
     
 }

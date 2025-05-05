@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Register</title>
+</head>
+<body>
+    <h1>Create Your Professor Account</h1>
+    <form id="professorRegisterForm">
+        <label for="Name">Full Name:</label>
+        <input type="text" id="Name" name="Name"><br><br>
+        <label for="Department">Department:</label>
+        <input type="text" id="Department" name="Department"><br><br>
+        <label for="Password">Password:</label>
+        <input type="text" id="Password" name="Password"><br><br>
+        <button type="submit">Register</button>
+    </form>
+    <body>
+        <span id="resultMessage"></span>
+    </body>
+
+    <script>
+        document.getElementById("professorRegisterForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            const urlData = new URLSearchParams(data);
+
+            const response = await fetch("/professor-register", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: urlData
+            });
+
+            const result = await response.json();
+        });
+    </script>
+    <script src="session.js"></script>
+    <script>populateUserData()</script>
+</body>
+</html>

@@ -26,6 +26,23 @@ public class SessionRepository implements StudentsDAO {
         return count != null && count > 0;
     }
 
+
+
+
+    public boolean studentRegister(String name, String major, String password) {
+        String sql = "INSERT INTO Students (Name, Major, Password) VALUES (?, ?, ?)";
+        Integer count = jdbcTemplate.update(sql, name, major, password);
+        return count != null && count > 0;
+    }
+
+    public boolean professorRegister(String name, String department, String password) {
+        String sql = "INSERT INTO Professors (Name, Department, Password) VALUES (?, ?, ?)";
+        Integer count = jdbcTemplate.update(sql, name, department, password);
+        return count != null && count > 0;
+    }
+
+
+
     
     @Override
     public Students findById(int StudentID) {

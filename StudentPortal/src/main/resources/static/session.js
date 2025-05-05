@@ -13,12 +13,16 @@ async function getProfessorSession() {
 function populateUserData(){
     getStudentSession().then((student) => {
         // Input Student Data
-        document.getElementById("studentName").textContent = student.name;
-        document.getElementById("studentID").textContent = student.studentID;
-        document.getElementById("studentMajor").textContent = student.major;
+        if(student!=0){
+            document.getElementById("studentName").textContent = student.name;
+            document.getElementById("studentID").textContent = student.studentID;
+            document.getElementById("studentMajor").textContent = student.major;
+        }
     })
     getProfessorSession().then((professor) => {
         // Input Professor Data
-        document.getElementById("professorName").textContent = professor.name;
+        if(professor!=0){
+            document.getElementById("professorName").textContent = professor.name;
+        }  
     })
 }

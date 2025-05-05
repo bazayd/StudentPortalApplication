@@ -26,4 +26,14 @@ public class HomePage {
         return "redirect:/professorLogin.html";
     }
 
+    @GetMapping("/studentRegister")
+    public String sRegister() {
+        return "redirect:/studentRegister.html";
+    }
+
+    @GetMapping("/professorRegister")
+    public String pRegister() {
+        return "redirect:/professorRegister.html";
+    }
+
 }
