@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import com.cs157.StudentPortal.model.Courses;
+import com.cs157.StudentPortal.model.Professors;
 
 @Repository
 public class CoursesImpl implements CoursesDAO{
@@ -14,6 +15,19 @@ public class CoursesImpl implements CoursesDAO{
     public CoursesImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+
+
+    public Courses getCourseBySearch(Boolean InMajor, Boolean MeetPrereq, Boolean MajorReq, String CourseName, int StudentID){
+        String sql = "SELECT CourseName, CourseMajor, CourseUnits, CourseTitle, CourseDescription, Name, StartTime, EndTime FROM Sections s INNER JOIN Courses c ON s.CourseID = c.CourseID Inner JOIN Professors p ON s.ProfessorID = p.ProfessorID WHERE c.CourseName LIKE '%' || ? || '%'";
+        return jdbcTemplate.queryForObject(sql, coursesRowMapper(), CourseName);
+    }
+
+
+
+
+
+
 
     @Override
     public void addCourse(Courses course) {

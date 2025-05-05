@@ -36,4 +36,9 @@ public class HomePage {
         return "redirect:/professorRegister.html";
     }
 
+    @GetMapping("/courses")
+    public String courses() {
+        return "redirect:/courses.html";
+    }
+
 }

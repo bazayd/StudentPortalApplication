@@ -9,6 +9,13 @@ CREATE TABLE IF NOT EXISTS Students(
     Major VARCHAR(255) DEFAULT 'Undeclared',
     PRIMARY KEY (StudentID)
 );
+CREATE TABLE IF NOT EXISTS Professors(
+	ProfessorID INT NOT NULL UNIQUE AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    Department VARCHAR(255),
+    PRIMARY KEY (ProfessorID)
+);
 CREATE TABLE IF NOT EXISTS Courses(
     CourseID INT NOT NULL UNIQUE AUTO_INCREMENT,
 	CourseName VARCHAR(255) NOT NULL,
@@ -18,17 +25,13 @@ CREATE TABLE IF NOT EXISTS Courses(
     CourseDescription VARCHAR(500),
     PRIMARY KEY (CourseID)
 );
-CREATE TABLE IF NOT EXISTS Professors(
-	ProfessorID INT NOT NULL UNIQUE AUTO_INCREMENT,
-    Name VARCHAR(255) NOT NULL,
-    Password VARCHAR(255) NOT NULL,
-    Department VARCHAR(255),
-    PRIMARY KEY (ProfessorID)
-);
 CREATE TABLE IF NOT EXISTS Sections(
 	SectionID INT NOT NULL UNIQUE AUTO_INCREMENT,
+    ProfessorID INT NOT NULL,
     CourseID INT NOT NULL,
-    StudentID INT NOT NULL,
+    StartTime TIME,
+    EndTime TIME,
+    DaysOfWeek VARCHAR(255),
     PRIMARY KEY (SectionID)
 );
 CREATE TABLE IF NOT EXISTS Enrollment(
@@ -52,3 +55,31 @@ CREATE TABLE IF NOT EXISTS Grades(
     Units SMALLINT NOT NULL,
     PRIMARY KEY (StudentID)
 );
+
+
+-- Professor Data
+INSERT INTO Professors (Name, Password, Department) 
+VALUES 
+('Dr. John Smith', 'password123', 'Computer Science'),
+('Dr. Emily Johnson', 'password456', 'Mathematics');
+
+-- Course Data
+INSERT INTO Courses (CourseName, CourseMajor, CourseUnits, CourseTitle, CourseDescription) 
+VALUES 
+('Introduction to Computer Science', 'Computer Science', 3, 'CS 101 - Intro to CS', 'An introductory course to computer science and programming.'),
+('Calculus I', 'Mathematics', 4, 'MATH 101 - Calculus I', 'An introduction to the concepts of calculus, including limits, derivatives, and integrals.'),
+('Physics I', 'Physics', 4, 'PHYS 101 - Mechanics', 'Introduction to classical mechanics, including motion, forces, and energy.'),
+('Introduction to Psychology', 'Psychology', 3, 'PSY 101 - Intro to Psychology', 'Basic principles of psychology, including human behavior, cognition, and emotion.');
+
+-- Section Data
+INSERT INTO Sections (CourseID, ProfessorID, StartTime, EndTime, DaysOfWeek) 
+VALUES 
+(1, 2, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
+(1, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
+(2, 1, '08:00:00', '09:30:00', 'Monday, Wednesday, Friday'),
+(2, 1, '14:00:00', '15:30:00', 'Tuesday, Thursday'),
+(3, 2, '10:00:00', '11:30:00', 'Monday, Wednesday, Friday'),
+(3, 2, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
+(4, 1, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
+(4, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday');
+

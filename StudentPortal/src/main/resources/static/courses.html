@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Course Registration</title>
+</head>
+<body>
+    <h1>Student Course Registration</h1>
+    <h2>View your registered courses and apply for new courses</h2>
+
+    <body>
+        <form id="sectionSearchForm">
+            <label for="CourseName">Course Name:</label>
+            <input type="text" id="CourseName" name="CourseName"><br><br>
+            <input type="checkbox" id="MeetPrereq" name="MeetPrereq" value="no">
+            <input type="checkbox" id="MajorReq" name="MajorReq" value="no">
+            <input type="checkbox" id="InMajor" name="InMajor" value="no">
+            <button type="submit">Search</button>
+        </form>
+        <body>
+            <span id="resultMessage"></span>
+        </body>
+    </body>
+
+
+
+    <script>
+        document.getElementById("sectionSearchForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            const urlData = new URLSearchParams(data);
+
+            const response = await fetch("/get-sections", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: urlData
+            });
+
+            const result = await response.json();
+            document.getElementById("resultMessage").textContent = "Successfully Created Your Account! Your ID is: "+result;
+        });
+    </script>
+</body>
+</html>
