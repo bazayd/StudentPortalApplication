@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Students(
     Name VARCHAR(255) NOT NULL,
     Password VARCHAR(255) NOT NULL,
     Major VARCHAR(255) DEFAULT 'Undeclared',
+    Hold Boolean DEFAULT FALSE,
     PRIMARY KEY (StudentID)
 );
 CREATE TABLE IF NOT EXISTS Professors(
@@ -38,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Enrollment(
 	SectionID INT NOT NULL,
 	StudentID INT NOT NULL,
 	Term VARCHAR(255),
-    PRIMARY KEY (StudentID)
+    PRIMARY KEY (SectionID, StudentID)
 );
 CREATE TABLE IF NOT EXISTS Messages(
 	MessageID INT NOT NULL,

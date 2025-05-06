@@ -16,10 +16,25 @@ document.getElementById("sectionSearchForm").addEventListener("submit", async fu
     displayCourses(result);
 });
 
+async function registerForSection(SectionID) {
+    urlData = new URLSearchParams({ 'SectionID': SectionID });
+
+    const response = await fetch("/register-sections", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: urlData
+    });
+
+    const result = await response.json();
+
+    alert(result);
+}
+
 function displayCourses(data){
     let dataDisplay = data.map((object) => {
         return `
-        <div class="container">
+        <div class="Section-Container">
+            <button onclick="registerForSection(${object.sectionID})">Register For Section</button>
             <p>Course Name: ${object.courseName}</p>
         </div>
         `
