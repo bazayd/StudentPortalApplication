@@ -28,8 +28,6 @@ public class CoursesImpl implements CoursesDAO{
         int InMajorSQL = (InMajor != null && InMajor) ? 1 : 0;
         int MeetPrereqSQL = (MeetPrereq != null && MeetPrereq) ? 1 : 0;
 
-        System.out.println("Major: "+InMajorSQL+" Prereq: "+MeetPrereqSQL);
-        
         String sql = "SELECT Courses.CourseID, Courses.CourseName, Courses.CourseMajor, Courses.CourseUnits, Courses.CourseTitle, Courses.CourseDescription, Professors.Name, Sections.DaysOfWeek, Sections.StartTime, Sections.EndTime "
         +"FROM Sections "
         +"INNER JOIN Courses ON Sections.CourseID = Courses.CourseID "

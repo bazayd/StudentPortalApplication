@@ -6,7 +6,8 @@
 </head>
 <body>
     <h1>Student Course Registration</h1>
-    <h2>View your registered courses and apply for new courses</h2>
+    <h2>View Your Registered Courses:</h2>
+    <h2>View Available Courses:</h2>
 
     <body>
         <form id="sectionSearchForm">
@@ -20,30 +21,12 @@
             </label>
             <button type="submit">Search</button>
         </form>
-        <body>
-            <span id="resultMessage"></span>
-        </body>
     </body>
 
+    <div id="coursesDisplay"></div>
 
+    
 
-    <script>
-        document.getElementById("sectionSearchForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            const urlData = new URLSearchParams(data);
-
-            const response = await fetch("/get-sections", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: urlData
-            });
-
-            const result = await response.json();
-            document.getElementById("resultMessage").textContent = "Classes: "+result;
-        });
-    </script>
+    <script src="courses.js"></script>
 </body>
 </html>
