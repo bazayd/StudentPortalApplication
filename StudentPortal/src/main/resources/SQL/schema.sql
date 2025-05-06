@@ -53,7 +53,13 @@ CREATE TABLE IF NOT EXISTS Grades(
     SectionID INT NOT NULL,
     Grade CHAR(25) DEFAULT 'NC',
     Units SMALLINT NOT NULL,
-    PRIMARY KEY (StudentID)
+    Completed Boolean NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (StudentID, SectionID)
+);
+CREATE TABLE IF NOT EXISTS Requisites(
+	ThisCourseID INT NOT NULL,
+    RequiresCourseID INT NOT NULL,
+    PRIMARY KEY (ThisCourseID,RequiresCourseID)
 );
 
 
@@ -69,7 +75,13 @@ VALUES
 ('Introduction to Computer Science', 'Computer Science', 3, 'CS 101 - Intro to CS', 'An introductory course to computer science and programming.'),
 ('Calculus I', 'Mathematics', 4, 'MATH 101 - Calculus I', 'An introduction to the concepts of calculus, including limits, derivatives, and integrals.'),
 ('Physics I', 'Physics', 4, 'PHYS 101 - Mechanics', 'Introduction to classical mechanics, including motion, forces, and energy.'),
-('Introduction to Psychology', 'Psychology', 3, 'PSY 101 - Intro to Psychology', 'Basic principles of psychology, including human behavior, cognition, and emotion.');
+('Introduction to Psychology', 'Psychology', 3, 'PSY 101 - Intro to Psychology', 'Basic principles of psychology, including human behavior, cognition, and emotion.'),
+('Calculus II', 'Mathematics', 4, 'MATH 102 - Calculus II', 'Like Calculus I, but sillier.');
+
+-- Requisite Data
+INSERT INTO Requisites (ThisCourseID, RequiresCourseID) 
+VALUES 
+(5, 1);
 
 -- Section Data
 INSERT INTO Sections (CourseID, ProfessorID, StartTime, EndTime, DaysOfWeek) 
@@ -81,5 +93,5 @@ VALUES
 (3, 2, '10:00:00', '11:30:00', 'Monday, Wednesday, Friday'),
 (3, 2, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
 (4, 1, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
-(4, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday');
-
+(4, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
+(5, 1, '11:00:00', '12:30:00', 'Tuesday, Thursday');

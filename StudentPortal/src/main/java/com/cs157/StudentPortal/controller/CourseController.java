@@ -15,24 +15,25 @@ import java.util.List;
 class CorseController {
 
     private final CoursesImpl repository;
-    private StudentsImpl students;
 
     CorseController( CoursesImpl repository) {
         this.repository = repository;
     }
 
+    
+
     @PostMapping("/get-sections")
-    Object getCourses(@RequestParam("InMajor") Boolean InMajor, 
-                    @RequestParam("MeetPrereq") Boolean MeetPrereq, 
-                    @RequestParam("MajorReq") Boolean MajorReq, 
+    Object getCourses(@RequestParam(name = "InMajor", required = false) Boolean InMajor, 
+                    @RequestParam(name = "MeetPrereq", required = false) Boolean MeetPrereq, 
                     @RequestParam("CourseName") String CourseName,
                     HttpSession session){
-        var id = session.getAttribute("sessionProfessorID");
+        
+        var id = session.getAttribute("sessionUserID");
         if(id==null){
             return null;
         }
         int StudentID = (int)id;
 
-        return repository.getCourseBySearch(InMajor, MeetPrereq, MajorReq, CourseName, StudentID);
+        return repository.getCourseBySearch(InMajor, MeetPrereq, CourseName, StudentID);
     }
 }
