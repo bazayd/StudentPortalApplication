@@ -27,6 +27,7 @@ class CorseController {
                     HttpSession session){
         
         var id = session.getAttribute("sessionUserID");
+       
         if(id==null){
             return null;
         }

@@ -28,7 +28,6 @@ class EnrollmentController {
             return "Please Login Before Registering For Courses";
         }
         int StudentID = (int)id;
-        System.out.println("asdf");
 
         return repository.registerSection(SectionID, StudentID);
     }

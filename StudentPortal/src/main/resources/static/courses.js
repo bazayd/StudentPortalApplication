@@ -11,9 +11,15 @@ document.getElementById("sectionSearchForm").addEventListener("submit", async fu
         body: urlData
     });
 
-    const result = await response.json();
+    try{
+        const result = await response.json();
+        displayCourses(result);
+    }
+    catch {
+        alert("You must be logged in to search section database!");
+        return;
+    }
     
-    displayCourses(result);
 });
 
 async function registerForSection(SectionID) {
