@@ -10,6 +10,9 @@ public class Grades {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String CourseName;
+    private String StudentName;
+
     private int StudentID;
 
     private int SectionID;
@@ -25,6 +28,22 @@ public class Grades {
         this.SectionID = SectionID;
         this.Grade = Grade;
         this.Units = Units;
+    }
+
+    public String getCourseName() {
+        return CourseName;
+    }
+
+    public void setCourseName(String courseName) {
+        CourseName = courseName;
+    }
+    
+    public String getStudentName() {
+        return StudentName;
+    }
+
+    public void setStudentName(String studentName) {
+        StudentName = studentName;
     }
 
     public int getStudentID() {

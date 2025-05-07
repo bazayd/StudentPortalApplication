@@ -3,6 +3,7 @@ package com.cs157.StudentPortal.controller;
 import com.cs157.StudentPortal.model.Students;
 import com.cs157.StudentPortal.repository.SessionRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,22 +21,30 @@ public class SessionController {
     }
 
     @PostMapping("/student-login")
-    String studentLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session){
+    String studentLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session, HttpServletRequest request){
+        if (session != null) {
+            session.invalidate();
+        }
+
+        session = request.getSession(true);
+
         if(repository.studentLogin(ID, Password)){
             session.setAttribute("sessionUserID", ID);
-        } else {
-            session.invalidate();
         }
         var redirectTo = "studentLogin.html";
         return "<script>window.location.href = \""+redirectTo+"\";</script>";
     }
 
     @PostMapping("/professor-login")
-    String professorLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session){
+    String professorLogin(@RequestParam("ID") int ID, @RequestParam("Password") String Password, HttpSession session, HttpServletRequest request){
+        if (session != null) {
+            session.invalidate();
+        }
+
+        session = request.getSession(true);
+        
         if(repository.professorLogin(ID, Password)){
             session.setAttribute("sessionProfessorID", ID);
-        } else {
-            session.invalidate();
         }
         var redirectTo = "professorLogin.html";
         return "<script>window.location.href = \""+redirectTo+"\";</script>";
