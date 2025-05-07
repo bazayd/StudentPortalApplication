@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
+import java.sql.Date;
+
 
 @Entity
 public class Messages {
@@ -16,17 +17,21 @@ public class Messages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int MessageID;
 
+    private int ProfessorID;
+
+    private String ProfessorName;
+
     private int StudentID;
 
     private String MessageTitle;
 
-    private LocalDate MessageDate;
+    private Date MessageDate;
 
     private String MessageBody;
 
     public Messages(){}
 
-    public Messages(int MessageID, int StudentID, String MessageTitle, LocalDate MessageDate, String MessageBody) {
+    public Messages(int MessageID, int StudentID, String MessageTitle, Date MessageDate, String MessageBody) {
         this.MessageID = MessageID;
         this.StudentID = StudentID;
         this.MessageTitle = MessageTitle;
@@ -50,6 +55,22 @@ public class Messages {
         StudentID = studentID;
     }
 
+    public int getProfessorID() {
+        return ProfessorID;
+    }
+
+    public void setProfessorID(int professorID) {
+        ProfessorID = professorID;
+    }
+
+    public String getProfessorName() {
+        return ProfessorName;
+    }
+
+    public void setProfessorName(String professorName) {
+        ProfessorName = professorName;
+    }
+
     public String getMessageTitle() {
         return MessageTitle;
     }
@@ -58,11 +79,11 @@ public class Messages {
         MessageTitle = messageTitle;
     }
 
-    public LocalDate getMessageDate() {
+    public Date getMessageDate() {
         return MessageDate;
     }
 
-    public void setMessageDate(LocalDate messageDate) {
+    public void setMessageDate(Date messageDate) {
         MessageDate = messageDate;
     }
 

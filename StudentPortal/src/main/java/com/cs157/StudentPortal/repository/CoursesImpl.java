@@ -5,12 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.util.List;
 import com.cs157.StudentPortal.model.Courses;
 import com.cs157.StudentPortal.model.Sections;
-
-import com.cs157.StudentPortal.repository.StudentsImpl;
 
 @Repository
 public class CoursesImpl implements CoursesDAO{

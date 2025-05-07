@@ -31,9 +31,8 @@ async function dropSection(SectionID) {
         body: urlData
     });
 
-    const result = await response.text();
+    //const result = await response.text();
     loadRegisteredSections();
-    alert(result);
 }
 
 async function registerForSection(SectionID) {

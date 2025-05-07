@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.cs157.StudentPortal.model.Courses;
 import com.cs157.StudentPortal.model.Students;
