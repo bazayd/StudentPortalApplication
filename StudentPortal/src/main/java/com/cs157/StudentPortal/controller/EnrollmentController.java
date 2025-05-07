@@ -19,8 +19,19 @@ class EnrollmentController {
         this.repository = repository;
     }
 
+    @PostMapping("/get-registered")
+    Object getSect(HttpSession session){
+        var id = session.getAttribute("sessionUserID");
+        if(id==null){
+            return "Please Login Before Registering For Courses";
+        }
+        int StudentID = (int)id;
+
+        return repository.getRegistered(StudentID);
+    }
+
     @PostMapping("/register-sections")
-    String getCourses(@RequestParam("SectionID") int SectionID,
+    String regSect(@RequestParam("SectionID") int SectionID,
                     HttpSession session){
         
         var id = session.getAttribute("sessionUserID");
@@ -30,6 +41,19 @@ class EnrollmentController {
         int StudentID = (int)id;
 
         return repository.registerSection(SectionID, StudentID);
+    }
+
+    @PostMapping("/drop-sections")
+    String dropSect(@RequestParam("SectionID") int SectionID,
+                    HttpSession session){
+        
+        var id = session.getAttribute("sessionUserID");
+        if(id==null){
+            return "Please Login Before Registering For Courses";
+        }
+        int StudentID = (int)id;
+
+        return repository.dropSection(SectionID, StudentID);
     }
 
 }

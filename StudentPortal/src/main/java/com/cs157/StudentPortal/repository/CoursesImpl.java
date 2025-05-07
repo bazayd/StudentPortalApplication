@@ -72,7 +72,7 @@ public class CoursesImpl implements CoursesDAO{
 
     }
 
-    private RowMapper<Courses> coursesRowMapper() {
+    public RowMapper<Courses> coursesRowMapper() {
         return (rs, rowNum) -> {
             Courses courses = new Courses();
             courses.setCourseID(rs.getInt("CourseID"));
@@ -83,7 +83,7 @@ public class CoursesImpl implements CoursesDAO{
     }
 
 
-    private RowMapper<Sections> sectionsRowMapper() {
+    public RowMapper<Sections> sectionsRowMapper() {
         return (rs, rowNum) -> {
             Sections sections = new Sections();
             sections.setSectionID(rs.getInt("SectionID"));

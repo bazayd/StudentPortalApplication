@@ -4,9 +4,11 @@ import java.util.List;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.cs157.StudentPortal.model.Courses;
 import com.cs157.StudentPortal.model.Students;
+import com.cs157.StudentPortal.model.Sections;
 
 
 @Repository
@@ -14,10 +16,34 @@ public class EnrollmentImpl implements CoursesDAO{
 
     private final JdbcTemplate jdbcTemplate;
     private final StudentsImpl students;
+    private final CoursesImpl courses;
 
-    public EnrollmentImpl(JdbcTemplate jdbcTemplate, StudentsImpl students) {
+    public EnrollmentImpl(JdbcTemplate jdbcTemplate, StudentsImpl students, CoursesImpl courses) {
         this.jdbcTemplate = jdbcTemplate;
         this.students = students;
+        this.courses = courses;
+    }
+
+
+    public List<Sections> getRegistered(int StudentID){
+        String sql = "SELECT Sections.SectionID, Courses.CourseID, Courses.CourseName, Courses.CourseMajor, Courses.CourseUnits, Courses.CourseTitle, Courses.CourseDescription, Professors.Name, Sections.DaysOfWeek, Sections.StartTime, Sections.EndTime "
+        +"FROM Enrollment "
+        +"INNER JOIN Sections ON Enrollment.SectionID = Sections.SectionID "
+        +"INNER JOIN Courses ON Sections.CourseID = Courses.CourseID "
+        +"INNER JOIN Students ON Enrollment.StudentID = Students.StudentID "
+        +"Inner JOIN Professors ON Sections.ProfessorID = Professors.ProfessorID "
+        +"WHERE Students.StudentID = ?";
+
+        return jdbcTemplate.query(sql, courses.sectionsRowMapper(), StudentID);
+
+    }
+
+    public String dropSection(int SectionID, int StudentID){
+        // Error: Check if user has registration hold
+        String sql = "DELETE FROM Enrollment WHERE StudentID = ? AND SectionID = ?";
+        jdbcTemplate.update(sql, StudentID, SectionID);
+       
+        return "Successfully Dropped Section!";
     }
 
     public String registerSection(int SectionID, int StudentID){

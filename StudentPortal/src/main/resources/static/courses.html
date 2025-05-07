@@ -7,6 +7,9 @@
 <body>
     <h1>Student Course Registration</h1>
     <h2>View Your Registered Courses:</h2>
+
+    <div class="Available-Sections" id="enrolledSectionsDisplay"></div>
+
     <h2>View Available Courses:</h2>
 
     <body>
@@ -23,10 +26,11 @@
         </form>
     </body>
 
-    <div class="Available-Sections" id="coursesDisplay"></div>
+    <div class="Available-Sections" id="availableSectionsDisplay"></div>
 
     
 
     <script src="courses.js"></script>
+    <script>loadRegisteredSections()</script>
 </body>
 </html>
