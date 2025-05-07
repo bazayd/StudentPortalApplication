@@ -7,7 +7,5 @@ public interface GradesDAO {
 
     List<Grades> findByStudentId(int StudentId);
 
-    List<Grades> findBySectionId(int SectionId);
-
     void updateGrades(int StudentId, int SectionId, String Grade);
 }

@@ -22,13 +22,13 @@ public class GradesImpl implements GradesDAO{
     }
 
     public List<Grades> findProfessorStudents(int ProfessorID) {
-        String sql = "SELECT Courses.CourseName, Students.Name, Students.StudentID, Grades.SectionID, Grades.Grade, Grades.Units " +
+        String sql = "SELECT Courses.CourseName, Students.Name, Students.StudentID, Grades.CourseID, Grades.Grade, Grades.Units " +
                 "FROM Sections " +
                 "JOIN Enrollment ON Enrollment.SectionID = Sections.SectionID " +
                 "JOIN Students ON Students.StudentID = Enrollment.StudentID " +
                 "JOIN Courses ON Sections.CourseID = Courses.CourseID " +
                 "LEFT JOIN Grades ON Grades.StudentID = Students.StudentID " +
-                "AND Grades.SectionID = Sections.SectionID " +
+                "AND Grades.CourseID = Sections.CourseID " +
                 "WHERE Sections.ProfessorID = ? " + 
                 "ORDER BY Sections.SectionID";
         
@@ -38,23 +38,13 @@ public class GradesImpl implements GradesDAO{
     @Override
     public List<Grades> findByStudentId(int StudentId) {
         
-        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.SectionId, Grades.Grade, Grades.Units, Students.Name " +
+        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name " +
                 "FROM Grades " +
                 "JOIN Students ON Grades.StudentID = Students.StudentID " +
-                "JOIN Sections on Grades.SectionID = Sections.SectionID " +
-                "JOIN Courses on Courses.CourseID = Sections.CourseID " +
+                "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
                 "WHERE Grades.StudentID = ?";
+        
         return jdbcTemplate.query(sql, gradesRowMapper(), StudentId);
-    }
-
-    @Override
-    public List<Grades> findBySectionId(int SectionId) {
-        String sql = "SELECT g.StudentId, g.SectionId, g.Grade, g.Units, s.Name" +
-                "FROM Grades g" +
-                "JOIN Students s on g.StudentId = s.StudentId" +
-                "JOIN Sections sec on g.SectionId = sec.SectionId" +
-                "WHERE g.SectionId = ?";
-        return jdbcTemplate.query(sql, gradesRowMapper(), SectionId);
     }
 
     @Override
@@ -69,10 +59,11 @@ public class GradesImpl implements GradesDAO{
             grades.setCourseName(rs.getString("CourseName"));
             grades.setStudentName(rs.getString("Name"));
             grades.setStudentID(rs.getInt("StudentID"));
-            grades.setSectionID(rs.getInt("SectionID"));
+            grades.setCourseID(rs.getInt("CourseID"));
             grades.setGrade(rs.getString("Grade"));
             grades.setUnits(rs.getInt("Units"));
             return grades;
         };
     }
+
 }

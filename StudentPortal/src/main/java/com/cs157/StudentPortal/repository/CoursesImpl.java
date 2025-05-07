@@ -33,7 +33,7 @@ public class CoursesImpl implements CoursesDAO{
         +"AND (?!=1 OR "
             +"(SELECT count(1) FROM Requisites WHERE Requisites.ThisCourseID = Sections.CourseID) "
             +"=(SELECT count(1) FROM Requisites WHERE Requisites.ThisCourseID = Sections.CourseID AND RequiresCourseID IN ( "
-                +"SELECT CourseID FROM Grades INNER JOIN Sections ON Sections.SectionID = Grades.SectionID WHERE Grades.StudentID = ? AND Completed=True AND Grade != 'F' AND Grade != 'NC')) "
+                +"SELECT Sections.CourseID FROM Grades INNER JOIN Sections ON Sections.CourseID = Grades.CourseID WHERE Grades.StudentID = ? AND Completed=True AND Grade != 'F' AND Grade != 'NC')) "
         +")";
 
         CourseName = "%"+CourseName+"%";
@@ -78,7 +78,6 @@ public class CoursesImpl implements CoursesDAO{
             return courses;
         };
     }
-
 
     public RowMapper<Sections> sectionsRowMapper() {
         return (rs, rowNum) -> {

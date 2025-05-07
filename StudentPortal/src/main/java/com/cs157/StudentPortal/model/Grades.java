@@ -15,7 +15,7 @@ public class Grades {
 
     private int StudentID;
 
-    private int SectionID;
+    private int CourseID;
 
     private String Grade;
 
@@ -23,9 +23,9 @@ public class Grades {
 
     public Grades() {}
 
-    public Grades(int StudentID, int SectionID, String Grade, int Units) {
+    public Grades(int StudentID, int CourseID, String Grade, int Units) {
         this.StudentID = StudentID;
-        this.SectionID = SectionID;
+        this.CourseID = CourseID;
         this.Grade = Grade;
         this.Units = Units;
     }
@@ -54,12 +54,12 @@ public class Grades {
         StudentID = studentID;
     }
 
-    public int getSectionID() {
-        return SectionID;
+    public int getCourseID() {
+        return CourseID;
     }
 
-    public void setSectionID(int sectionID) {
-        SectionID = sectionID;
+    public void setCourseID(int courseID) {
+        CourseID = courseID;
     }
 
     public String getGrade() {

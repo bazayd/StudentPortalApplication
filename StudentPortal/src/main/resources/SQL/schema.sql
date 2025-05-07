@@ -41,6 +41,14 @@ CREATE TABLE IF NOT EXISTS Enrollment(
 	Term VARCHAR(255),
     PRIMARY KEY (SectionID, StudentID)
 );
+CREATE TABLE IF NOT EXISTS Grades(
+	StudentID INT NOT NULL,
+    CourseID INT NOT NULL,
+    Grade CHAR(25) DEFAULT 'NC',
+    Units SMALLINT NOT NULL,
+    Completed Boolean NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (StudentID, CourseID)
+);
 CREATE TABLE IF NOT EXISTS Messages(
 	MessageID INT NOT NULL UNIQUE AUTO_INCREMENT,
 	StudentID INT NOT NULL,
@@ -49,14 +57,6 @@ CREATE TABLE IF NOT EXISTS Messages(
     MessageDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     MessageBody LONGTEXT,
     PRIMARY KEY (MessageID)
-);
-CREATE TABLE IF NOT EXISTS Grades(
-	StudentID INT NOT NULL,
-    SectionID INT NOT NULL,
-    Grade CHAR(25) DEFAULT 'NC',
-    Units SMALLINT NOT NULL,
-    Completed Boolean NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (StudentID, SectionID)
 );
 CREATE TABLE IF NOT EXISTS Requisites(
 	ThisCourseID INT NOT NULL,
@@ -110,7 +110,7 @@ VALUES
 (1, 1, 'Hold On Your Account', 'Hello Harold, we have placed an advising hold on your account stopping you from registering for classes. Please schedule an appointment meeting with your advisior to clear the hold.');
 
 -- Grades Data
-INSERT INTO Grades (StudentID, SectionID, Grade, Units)
+INSERT INTO Grades (StudentID, CourseID, Grade, Units)
 VALUES
 (1, 1, 'A', 3),
 (2, 2, 'C', 2),
