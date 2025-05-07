@@ -29,5 +29,6 @@ class ProfessorController {
     
         return repository.professorDetails((int)id);
     }
-    
+
+
 }
