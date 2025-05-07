@@ -56,5 +56,8 @@ public class HomePage {
         return "redirect:/courseHistory.html";
     }
 
-
+    @GetMapping("/professorMessaging")
+    public String professorMessaging() {
+        return "redirect:/professorMessaging.html";
+    }
 }

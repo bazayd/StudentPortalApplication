@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Messaging</title>
+</head>
+<body>
+    <h1>Professor Messaging</h1>
+    <h2>Send Messages To Students:</h2>
+    <form id="professorMessage">
+        <label for="recipientStudentID">Recipient Student ID:</label>
+        <input type="text" id="recipientStudentID" name="recipientStudentID"><br><br>
+        <label for="messageTitle">Message Title:</label>
+        <input type="text" id="messageTitle" name="messageTitle"><br><br>
+        <label for="messageBody">Your Message:</label><br>
+        <textarea id="messageBody" name="messageBody" rows="20" cols="100" placeholder="Enter your message here..."></textarea><br><br>
+        <button type="submit">Send</button>
+    </form>
+
+
+
+    <script>
+        document.getElementById("professorMessage").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            const urlData = new URLSearchParams(data);
+
+            const response = await fetch("/professor-message", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: urlData
+            });
+            
+            
+            if(response.ok){
+                alert("Message Sent Successfully!");
+            } else {
+                alert("Error Occurred In Sending Message!");
+            }
+        });
+    </script>
+</body>
+
+</html>

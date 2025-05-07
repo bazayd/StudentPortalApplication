@@ -18,11 +18,15 @@ public class MessageImpl{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public Boolean sendMessage(int ProfessorID, int StudentID, String MessageTitle, String MessageBody){
+        String sql = "INSERT INTO Messages (ProfessorID, StudentID, MessageTitle, MessageBody) VALUES (?, ?, ?, ?)";
+        return 0 < jdbcTemplate.update(sql, ProfessorID, StudentID, MessageTitle, MessageBody);
+    }
+
     public List<Messages> getMessagesForStudent(int StudentID){
         String sql = "SELECT * FROM Messages INNER JOIN Professors ON Messages.ProfessorID = Professors.ProfessorID WHERE StudentID = ?";
         return jdbcTemplate.query(sql, MessageRowMapper(), StudentID);
     }
-
 
     public RowMapper<Messages> MessageRowMapper() {
         return (rs, rowNum) -> {

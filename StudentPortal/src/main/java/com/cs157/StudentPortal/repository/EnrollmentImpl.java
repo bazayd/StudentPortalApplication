@@ -115,6 +115,9 @@ public class EnrollmentImpl implements CoursesDAO{
         sql = "INSERT INTO Enrollment (StudentID, SectionID) VALUES (?,?)";
         count = jdbcTemplate.update(sql, StudentID, SectionID);
         
+        // Insert New Grade
+        
+
         returnMessage+="Successfully Registered New Section!";
         return returnMessage;
     }

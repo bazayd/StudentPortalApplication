@@ -39,7 +39,7 @@ public class GradesImpl implements GradesDAO{
                 "JOIN Students ON Grades.StudentID = Students.StudentID " +
                 "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
                 "WHERE Grades.StudentID = ? AND Grades.Completed=TRUE";
-        System.out.println(sql);
+        
         return jdbcTemplate.query(sql, gradesRowMapper(), StudentId);
     }
 
