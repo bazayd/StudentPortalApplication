@@ -16,6 +16,16 @@ document.getElementById("studentSearchForm").addEventListener("submit", async fu
 
 })
 
+document.getElementById("completeSemester").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const response = await fetch("/complete-semester", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+    })
+
+})
+
 function displayGrades(data) {
 
      console.log(data);

@@ -21,6 +21,28 @@ public class GradesImpl implements GradesDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public void completeSemester(){
+        // Complete all grades
+        String sql = "UPDATE Grades "+
+        "SET Completed=TRUE";
+        jdbcTemplate.update(sql);
+
+        // Delete all enrollments
+        sql = "DELETE FROM Enrollment";
+        jdbcTemplate.update(sql);
+    }
+
+    public List<Grades> findCompletedCourses(int StudentId) {
+        
+        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name " +
+                "FROM Grades " +
+                "JOIN Students ON Grades.StudentID = Students.StudentID " +
+                "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
+                "WHERE Grades.StudentID = ? AND Grades.Completed=TRUE";
+        System.out.println(sql);
+        return jdbcTemplate.query(sql, gradesRowMapper(), StudentId);
+    }
+
     public List<Grades> findProfessorStudents(int ProfessorID) {
         String sql = "SELECT Courses.CourseName, Students.Name, Students.StudentID, Grades.CourseID, Grades.Grade, Grades.Units " +
                 "FROM Sections " +
@@ -42,7 +64,7 @@ public class GradesImpl implements GradesDAO{
                 "FROM Grades " +
                 "JOIN Students ON Grades.StudentID = Students.StudentID " +
                 "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
-                "WHERE Grades.StudentID = ?";
+                "WHERE Grades.StudentID = ? AND Grades.Completed=FALSE";
         
         return jdbcTemplate.query(sql, gradesRowMapper(), StudentId);
     }

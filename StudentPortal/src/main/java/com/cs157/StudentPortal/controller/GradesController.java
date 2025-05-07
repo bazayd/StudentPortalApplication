@@ -20,6 +20,16 @@ public class GradesController {
         this.sessions = sessions;
     }
 
+    @PostMapping("/complete-semester")
+    public void finishSemester(HttpSession session){
+        var id = session.getAttribute("sessionProfessorID");
+        if(id==null || !sessions.validateProfessorID((int)id)){
+            return;
+        }
+
+        repository.completeSemester();
+    }
+
     @PostMapping("/student-grades")
     public List<Grades> getGradesByStudentId(@RequestParam("StudentID") int StudentID, HttpSession session) {
         var id = session.getAttribute("sessionProfessorID");
@@ -36,6 +46,15 @@ public class GradesController {
             return null;
         }
         return repository.findProfessorStudents((int)id);
+    }
+
+    @PostMapping("/get-completed")
+    public List<Grades> getCompletedCourses(HttpSession session) {
+        var id = session.getAttribute("sessionUserID");
+        if(id==null){
+            return null;
+        }
+        return repository.findCompletedCourses((int)id);
     }
 
 }
