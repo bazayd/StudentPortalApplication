@@ -29,12 +29,13 @@ public class GradesController {
         return repository.findByStudentId(StudentID);
     }
 
-    /* 
-    @PostMapping("/grades/{sectionId}")
-    public List<Grades> getGradesBySectionId(@PathVariable int SectionId) {
-        return repository.findBySectionId(SectionId);
+    @PostMapping("/get-students")
+    public List<Grades> getProfessorStudents(HttpSession session) {
+        var id = session.getAttribute("sessionProfessorID");
+        if(id==null || !sessions.validateProfessorID((int)id)){
+            return null;
+        }
+        return repository.findProfessorStudents((int)id);
     }
-        */
-
 
 }
