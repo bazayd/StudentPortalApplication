@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Students(
     Name VARCHAR(255) NOT NULL,
     Password VARCHAR(255) NOT NULL,
     Major VARCHAR(255) DEFAULT 'Undeclared',
+    Hold Boolean DEFAULT FALSE,
     PRIMARY KEY (StudentID)
 );
 CREATE TABLE IF NOT EXISTS Professors(
@@ -38,12 +39,13 @@ CREATE TABLE IF NOT EXISTS Enrollment(
 	SectionID INT NOT NULL,
 	StudentID INT NOT NULL,
 	Term VARCHAR(255),
-    PRIMARY KEY (StudentID)
+    PRIMARY KEY (SectionID, StudentID)
 );
 CREATE TABLE IF NOT EXISTS Messages(
-	MessageID INT NOT NULL,
+	MessageID INT NOT NULL UNIQUE AUTO_INCREMENT,
 	StudentID INT NOT NULL,
-	MessageTITLE VARCHAR(255) NOT NULL,
+    ProfessorID INT NOT NULL,
+	MessageTitle VARCHAR(255) NOT NULL,
     MessageDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     MessageBody LONGTEXT,
     PRIMARY KEY (MessageID)
@@ -66,8 +68,8 @@ CREATE TABLE IF NOT EXISTS Requisites(
 -- Professor Data
 INSERT INTO Professors (Name, Password, Department) 
 VALUES 
-('Dr. John Smith', 'password123', 'Computer Science'),
-('Dr. Emily Johnson', 'password456', 'Mathematics');
+('Dr. John Smith', 'asdf', 'Computer Science'),
+('Dr. Emily Johnson', 'asdf', 'Mathematics');
 
 -- Course Data
 INSERT INTO Courses (CourseName, CourseMajor, CourseUnits, CourseTitle, CourseDescription) 
@@ -95,3 +97,14 @@ VALUES
 (4, 1, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
 (4, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
 (5, 1, '11:00:00', '12:30:00', 'Tuesday, Thursday');
+
+-- Student Data
+INSERT INTO Students (Name, Password, Major)
+VALUES
+('Harold Lawrence', 'asdf', 'Computer Science');
+
+-- Message Data
+INSERT INTO Messages (StudentID, ProfessorID, MessageTitle, MessageBody)
+VALUES
+(1, 1, 'Hello Harold', 'It is nice to meet you Harold.'),
+(1, 1, 'Hold On Your Account', 'Hello Harold, we have placed an advising hold on your account stopping you from registering for classes. Please schedule an appointment meeting with your advisior to clear the hold.');

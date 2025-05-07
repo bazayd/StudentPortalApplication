@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
 class StudentController {

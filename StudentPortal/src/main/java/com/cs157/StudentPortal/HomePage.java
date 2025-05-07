@@ -45,5 +45,10 @@ public class HomePage {
     public String admin() {
         return "redirect:/professorAdmin.html";
     }
+    
+    @GetMapping("/messages")
+    public String messages() {
+        return "redirect:/messages.html";
+    }
 
 }

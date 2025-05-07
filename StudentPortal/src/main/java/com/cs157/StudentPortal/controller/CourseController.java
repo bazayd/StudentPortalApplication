@@ -20,8 +20,6 @@ class CorseController {
         this.repository = repository;
     }
 
-    
-
     @PostMapping("/get-sections")
     Object getCourses(@RequestParam(name = "InMajor", required = false) Boolean InMajor, 
                     @RequestParam(name = "MeetPrereq", required = false) Boolean MeetPrereq, 
@@ -29,6 +27,7 @@ class CorseController {
                     HttpSession session){
         
         var id = session.getAttribute("sessionUserID");
+       
         if(id==null){
             return null;
         }

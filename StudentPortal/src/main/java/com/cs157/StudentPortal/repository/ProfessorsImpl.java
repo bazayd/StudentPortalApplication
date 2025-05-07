@@ -1,7 +1,6 @@
 package com.cs157.StudentPortal.repository;
 
 import com.cs157.StudentPortal.model.Professors;
-import com.cs157.StudentPortal.model.Students;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;

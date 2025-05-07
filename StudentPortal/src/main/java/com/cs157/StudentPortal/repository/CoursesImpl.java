@@ -5,12 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.util.List;
 import com.cs157.StudentPortal.model.Courses;
 import com.cs157.StudentPortal.model.Sections;
-
-import com.cs157.StudentPortal.repository.StudentsImpl;
 
 @Repository
 public class CoursesImpl implements CoursesDAO{
@@ -22,13 +19,12 @@ public class CoursesImpl implements CoursesDAO{
         this.students = students;
     }
 
-
     public List<Sections> getCourseBySearch(Boolean InMajor, Boolean MeetPrereq, String CourseName, int StudentID){
         Students caller = students.getStudentById(StudentID);
         int InMajorSQL = (InMajor != null && InMajor) ? 1 : 0;
         int MeetPrereqSQL = (MeetPrereq != null && MeetPrereq) ? 1 : 0;
 
-        String sql = "SELECT Courses.CourseID, Courses.CourseName, Courses.CourseMajor, Courses.CourseUnits, Courses.CourseTitle, Courses.CourseDescription, Professors.Name, Sections.DaysOfWeek, Sections.StartTime, Sections.EndTime "
+        String sql = "SELECT Sections.SectionID, Courses.CourseID, Courses.CourseName, Courses.CourseMajor, Courses.CourseUnits, Courses.CourseTitle, Courses.CourseDescription, Professors.Name, Sections.DaysOfWeek, Sections.StartTime, Sections.EndTime "
         +"FROM Sections "
         +"INNER JOIN Courses ON Sections.CourseID = Courses.CourseID "
         +"Inner JOIN Professors ON Sections.ProfessorID = Professors.ProfessorID "
@@ -73,7 +69,7 @@ public class CoursesImpl implements CoursesDAO{
 
     }
 
-    private RowMapper<Courses> coursesRowMapper() {
+    public RowMapper<Courses> coursesRowMapper() {
         return (rs, rowNum) -> {
             Courses courses = new Courses();
             courses.setCourseID(rs.getInt("CourseID"));
@@ -84,9 +80,10 @@ public class CoursesImpl implements CoursesDAO{
     }
 
 
-    private RowMapper<Sections> sectionsRowMapper() {
+    public RowMapper<Sections> sectionsRowMapper() {
         return (rs, rowNum) -> {
             Sections sections = new Sections();
+            sections.setSectionID(rs.getInt("SectionID"));
             sections.setCourseID(rs.getInt("CourseID"));
             sections.setCourseName(rs.getString("CourseName"));
             sections.setCourseDescription(rs.getString("CourseDescription"));
