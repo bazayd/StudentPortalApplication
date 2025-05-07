@@ -108,3 +108,13 @@ INSERT INTO Messages (StudentID, ProfessorID, MessageTitle, MessageBody)
 VALUES
 (1, 1, 'Hello Harold', 'It is nice to meet you Harold.'),
 (1, 1, 'Hold On Your Account', 'Hello Harold, we have placed an advising hold on your account stopping you from registering for classes. Please schedule an appointment meeting with your advisior to clear the hold.');
+
+-- Grades Data
+INSERT INTO Grades (StudentID, SectionID, Grade, Units)
+VALUES
+(1, 1, 'A', 3),
+(2, 2, 'C', 2),
+(1, 3, 'B', 3),
+(1, 4, 'A-', 3),
+(2, 4, 'F', 3),
+(2, 3, 'B', 3);

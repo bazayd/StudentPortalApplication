@@ -17,15 +17,24 @@ document.getElementById("studentSearchForm").addEventListener("submit", async fu
 })
 
 function displayGrades(data) {
-     let dataDisplay = data.map((object) => {
-            return `
-            <div class="container">
-                <p>Student ID: ${object.StudentID}</p>
-                <p>Grades: ${object.Grades}</p>
-            </div>
-            `
-     }).join("");
+     console.log(data);
+     const groupedStudentData = data.reduce((acc, object) => {
+        if (!acc[object.studentID]) {
+            acc[object.studentID] = [];
+        }
+        acc[object.studentID].push(object.grade);
+        return acc;
+     }, {});
 
-    Document.getElementById("gradesDisplay").innerHTML = dataDisplay;
+    const dataDisplay = Object.entries(groupedStudentData).map(([studentID, grade]) => {
+        return `
+          <div class="container">
+            <p>Student ID: ${studentID}</p>
+            <p>Grades: ${grade.join(", ")}</p>
+          </div>
+        `
+    }).join("");
+
+    document.getElementById("gradesDisplay").innerHTML = dataDisplay;
 
 }
