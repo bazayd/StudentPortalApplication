@@ -18,14 +18,13 @@ public class GradesImpl implements GradesDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     @Override
     public List<Grades> findByStudentId(int StudentId) {
-        String sql = "SELECT g.StudentId, g.SectionId, g.Grade, g.Units, s.Name" +
-                "FROM Grades g" +
-                "JOIN Students s on g.StudentId = s.StudentId" +
-                "JOIN Sections sec on g.SectionId = sec.SectionId" +
-                "WHERE g.StudentId = ?";
+        String sql = "SELECT Grades.StudentId, Grades.SectionId, Grades.Grade, Grades.Units, Students.Name " +
+                "FROM Grades " +
+                "JOIN Students ON Grades.StudentID = Students.StudentID " +
+                "JOIN Sections on Grades.SectionID = Sections.SectionID " +
+                "WHERE Grades.StudentID = ?";
         return jdbcTemplate.query(sql, gradesRowMapper(), StudentId);
     }
 

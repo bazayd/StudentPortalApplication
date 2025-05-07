@@ -41,4 +41,9 @@ public class HomePage {
         return "redirect:/courses.html";
     }
 
+    @GetMapping("/admin")
+    public String admin() {
+        return "redirect:/professorAdmin.html";
+    }
+
 }

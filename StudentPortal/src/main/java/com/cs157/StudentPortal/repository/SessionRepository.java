@@ -31,7 +31,11 @@ public class SessionRepository {
         return count != null && count > 0;
     }
 
-
+    public boolean validateProfessorID(int id) {
+        String sql = "SELECT COUNT(*) FROM Professors WHERE ProfessorID = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return count != null && count > 0;
+    }
 
 
     public Integer studentRegister(String name, String major, String password) { 

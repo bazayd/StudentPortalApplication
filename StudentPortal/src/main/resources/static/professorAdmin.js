@@ -5,14 +5,13 @@ document.getElementById("studentSearchForm").addEventListener("submit", async fu
     const data = Object.fromEntries(formData);
     const urlData = new URLSearchParams(data);
 
-    const response = await fetch("/grades/{studentID}", {
+    const response = await fetch("/student-grades", {
         method: "POST",
         headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
         body: urlData
     })
 
     const result = await response.json();
-
     displayGrades(result);
 
 })
@@ -26,4 +25,7 @@ function displayGrades(data) {
             </div>
             `
      }).join("");
+
+    Document.getElementById("gradesDisplay").innerHTML = dataDisplay;
+
 }
