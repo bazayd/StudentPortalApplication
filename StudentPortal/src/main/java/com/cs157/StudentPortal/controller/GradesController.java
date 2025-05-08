@@ -20,6 +20,24 @@ public class GradesController {
         this.sessions = sessions;
     }
 
+    @PostMapping("/add-hold")
+    public boolean addHoldByID(@RequestParam("StudentID") int StudentID, HttpSession session) {
+        var id = session.getAttribute("sessionProfessorID");
+        if(id==null || !sessions.validateProfessorID((int)id)){
+            return false;
+        }
+        return repository.addHold(StudentID);
+    }
+
+    @PostMapping("/rem-hold")
+    public boolean remHoldByID(@RequestParam("StudentID") int StudentID, HttpSession session) {
+        var id = session.getAttribute("sessionProfessorID");
+        if(id==null || !sessions.validateProfessorID((int)id)){
+            return false;
+        }
+        return repository.remHold(StudentID);
+    }
+
     @PostMapping("/complete-semester")
     public void finishSemester(HttpSession session){
         var id = session.getAttribute("sessionProfessorID");

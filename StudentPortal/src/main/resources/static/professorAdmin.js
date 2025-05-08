@@ -1,7 +1,8 @@
 document.getElementById("studentSearchForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-
+    
     const formData = new FormData(this);
+    var sID = formData.get("StudentID");
     const data = Object.fromEntries(formData);
     const urlData = new URLSearchParams(data);
 
@@ -12,7 +13,7 @@ document.getElementById("studentSearchForm").addEventListener("submit", async fu
     })
 
     const result = await response.json();
-    displayGrades(result,urlData);
+    displayGrades(result,sID);
 
 })
 
@@ -31,10 +32,34 @@ async function updateGrade(courseID, studentID){
 
 }
 
+async function addHold(studentID){
+    urlData = new URLSearchParams({ 'StudentID': studentID });
 
-function displayGrades(data) {
+    const response = await fetch("/add-hold", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+        body: urlData
+    })
+}
 
-    console.log(data);
+async function remHold(studentID){
+    urlData = new URLSearchParams({ 'StudentID': studentID });
+
+    const response = await fetch("/rem-hold", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+        body: urlData
+    })
+}
+
+function displayGrades(data, studentID) {
+
+    let holdSettings = `
+        <div>
+            <button onclick="addHold(${studentID})">Add Hold</button>
+            <button onclick="remHold(${studentID})">Remove Hold</button>
+        </div>
+    `;
     
     let dataDisplay = data.map((object) => {
         return `
@@ -48,6 +73,7 @@ function displayGrades(data) {
         `
     }).join("");
 
+    document.getElementById("holdsDisplay").innerHTML = holdSettings;
     document.getElementById("gradesDisplay").innerHTML = dataDisplay;
 
 }

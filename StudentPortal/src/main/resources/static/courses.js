@@ -69,8 +69,11 @@ function displayRegisteredSections(data){
     let dataDisplay = data.map((object) => {
         return `
         <div class="Section-Container">
-            <button onclick="dropSection(${object.sectionID})">Drop Section</button>
             <p>Course Name: ${object.courseName}</p>
+            <p>Professor: ${object.name}</p>
+            <p>Days: ${object.daysOfWeek}</p>
+            <p>StartTime: ${object.startTime} EndTime: ${object.endTime} </p>
+            <button onclick="dropSection(${object.sectionID})">Drop Section</button>
         </div>
         `
     }).join("");
@@ -82,8 +85,11 @@ function displaySections(data){
     let dataDisplay = data.map((object) => {
         return `
         <div class="Section-Container">
-            <button onclick="registerForSection(${object.sectionID})">Register For Section</button>
             <p>Course Name: ${object.courseName}</p>
+            <p>Professor: ${object.name}</p>
+            <p>Days: ${object.daysOfWeek}</p>
+            <p>StartTime: ${object.startTime} EndTime: ${object.endTime} </p>
+            <button onclick="registerForSection(${object.sectionID})">Register For Section</button>
         </div>
         `
     }).join("");

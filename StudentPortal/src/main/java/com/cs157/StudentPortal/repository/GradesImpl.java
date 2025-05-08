@@ -1,7 +1,12 @@
 package com.cs157.StudentPortal.repository;
 
 import com.mysql.cj.result.Row;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.cs157.StudentPortal.model.Grades;
 import com.cs157.StudentPortal.model.Sections;
 import com.cs157.StudentPortal.model.Students;
@@ -31,6 +36,18 @@ public class GradesImpl implements GradesDAO{
                         "Grade = VALUES(Grade)"; 
 
         jdbcTemplate.update(sql, CourseID, StudentID, NewGrade);
+        return true;
+    }
+
+    public boolean remHold(int StudentID){
+        String sql = "UPDATE Students SET Hold = FALSE WHERE StudentID = ?";
+        jdbcTemplate.update(sql, StudentID);
+        return true;
+    }
+
+    public boolean addHold(int StudentID){
+        String sql = "UPDATE Students SET Hold = TRUE WHERE StudentID = ?";
+        jdbcTemplate.update(sql, StudentID);
         return true;
     }
 

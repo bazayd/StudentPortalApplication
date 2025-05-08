@@ -40,37 +40,33 @@
   <li style="float:right"><a id="UserName"></a></li>
   <li style="float:right"><a id="UserID"></a></li>
 </ul>
-<h1>View Your Student Information:</h1>
-<h2></h2>
-<h1>View Your Student Information:</h1>
-<h2></h2>
-    <h1>Student Course Registration</h1>
-    <h2>View Your Registered Courses:</h2>
+  <h1>Student Course Registration</h1>
+  <h2>View Your Registered Sections:</h2>
 
-    <div class="Available-Sections" id="enrolledSectionsDisplay"></div>
+  <div class="Available-Sections" id="enrolledSectionsDisplay"></div>
 
-    <h2>View Available Courses:</h2>
+  <h2>View Available Sections:</h2>
 
-    <body>
-        <form id="sectionSearchForm">
-            <label for="CourseName">Course Name:</label>
-            <input type="text" id="CourseName" name="CourseName"><br><br>
-            <label>
-                <input type="checkbox" name="MeetPrereq" value="1"> Classes With Prerequisites You Have
-            </label>
-            <label>
-                <input type="checkbox" name="InMajor" value="1"> Classes In Your Major
-            </label>
-            <button type="submit">Search</button>
-        </form>
-    </body>
+  <body>
+      <form id="sectionSearchForm">
+          <label for="CourseName">Course Name:</label>
+          <input type="text" id="CourseName" name="CourseName"><br><br>
+          <label>
+              <input type="checkbox" name="MeetPrereq" value="1"> Classes With Prerequisites You Have
+          </label>
+          <label>
+              <input type="checkbox" name="InMajor" value="1"> Classes In Your Major
+          </label>
+          <button type="submit">Search</button>
+      </form>
+  </body>
 
-    <div class="Available-Sections" id="availableSectionsDisplay"></div>
+  <div class="Available-Sections" id="availableSectionsDisplay"></div>
 
-    
 
-    <script src="courses.js"></script>
-    <script>loadRegisteredSections()</script>
-    <script src="session.js"></script>
+
+  <script src="courses.js"></script>
+  <script>loadRegisteredSections()</script>
+  <script src="session.js"></script>
 </body>
 </html>
