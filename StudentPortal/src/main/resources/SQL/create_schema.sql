@@ -104,16 +104,42 @@ VALUES
 -- Course Data
 INSERT INTO Courses (CourseName, CourseMajor, CourseUnits, CourseTitle, CourseDescription) 
 VALUES 
-('Introduction to Computer Science', 'Computer Science', 3, 'CS 101 - Intro to CS', 'An introductory course to computer science and programming.'),
 ('Calculus I', 'Mathematics', 4, 'MATH 101 - Calculus I', 'An introduction to the concepts of calculus, including limits, derivatives, and integrals.'),
+('Calculus II', 'Mathematics', 4, 'MATH 102 - Calculus II', 'Covers integration, differential equations, sequences and series, and parametric equations and polar coordinates.'),
+('Calculus III', 'Mathematics', 4, 'MATH 203 - Calculus III', 'Covers multivariable calculus, including partial derivatives, multiple integrals, and vector calculus.'),
+('Introduction to Computer Science', 'Computer Science', 3, 'CS 101 - Intro to CS', 'An introductory course to computer science and programming.'),
+('Data Structures and Algorithms', 'Computer Science', 3, 'CS 201 - Data Structures and Algorithms', 'Focus on data structures, algorithm analysis, and problem-solving strategies.'),
+('Introduction to Artificial Intelligence', 'Computer Science', 3, 'CS 301 - Intro to AI', 'Introduction to AI techniques such as machine learning, search algorithms, and robotics.'),
 ('Physics I', 'Physics', 4, 'PHYS 101 - Mechanics', 'Introduction to classical mechanics, including motion, forces, and energy.'),
-('Introduction to Psychology', 'Psychology', 3, 'PSY 101 - Intro to Psychology', 'Basic principles of psychology, including human behavior, cognition, and emotion.'),
-('Calculus II', 'Mathematics', 4, 'MATH 102 - Calculus II', 'Like Calculus I, but sillier.');
+('Physics II', 'Physics', 4, 'PHYS 102 - Electricity and Magnetism', 'Introduction to electromagnetism, including electric fields, magnetic fields, and electromagnetic waves.'),
+('Physics III', 'Physics', 4, 'PHYS 203 - Modern Physics', 'Covers topics in modern physics, including special relativity, quantum mechanics, and atomic structure.'),
+('Thermodynamics', 'Physics', 4, 'PHYS 202 - Thermodynamics', 'Study of the principles of thermodynamics and their applications in various systems.'),
+('Quantum Mechanics', 'Physics', 4, 'PHYS 201 - Quantum Mechanics', 'Study of quantum theory, including wave-particle duality and quantum states.'),
+('Linear Algebra', 'Mathematics', 3, 'MATH 201 - Linear Algebra', 'Introduction to vectors, matrices, and linear transformations.'),
+('Business Management', 'Business', 3, 'BUS 101 - Intro to Business Management', 'An overview of business principles, management practices, and organizational behavior.'),
+('History of Modern Europe', 'History', 3, 'HIST 201 - Modern European History', 'Examination of European history from the Renaissance to the present.'),
+('Mechanical Engineering Design', 'Mechanical Engineering', 4, 'ME 301 - Mechanical Engineering Design', 'Introduction to the design process, including CAD modeling and prototyping.'),
+('Corporate Finance', 'Business', 3, 'BUS 202 - Corporate Finance', 'Introduction to the management of corporate financial resources and capital markets.'),
+('American History', 'History', 3, 'HIST 301 - American History', 'Survey of American history from pre-colonial times to the present.'),
+('Environmental Science', 'Physics', 3, 'PHYS 301 - Environmental Science', 'Study of environmental systems, energy resources, and sustainability practices.');
 
 -- Requisite Data
 INSERT INTO Requisites (ThisCourseID, RequiresCourseID) 
 VALUES 
-(5, 1);
+(3, 2),
+(2, 1),
+(5, 4),
+(5, 2),
+(6, 3),
+(6, 5),
+(8, 7),
+(9, 8),
+(10, 9),
+(10, 2),
+(11, 9),
+(11, 3),
+(12, 2),
+(14, 17);
 
 -- Section Data
 INSERT INTO Sections (CourseID, ProfessorID, StartTime, EndTime, DaysOfWeek) 
@@ -126,10 +152,43 @@ VALUES
 (3, 2, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
 (4, 1, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
 (4, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
-(5, 1, '11:00:00', '12:30:00', 'Tuesday, Thursday');
+(5, 1, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
+(6, 3, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
+(6, 4, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
+(7, 5, '08:00:00', '09:30:00', 'Monday, Wednesday, Friday'),
+(7, 6, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
+(8, 7, '10:00:00', '11:30:00', 'Monday, Wednesday, Friday'),
+(8, 8, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
+(9, 9, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
+(9, 10, '14:00:00', '15:30:00', 'Tuesday, Thursday'),
+(10, 11, '08:00:00', '09:30:00', 'Monday, Wednesday, Friday'),
+(10, 12, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
+(11, 13, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
+(11, 14, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
+(12, 13, '08:00:00', '09:30:00', 'Monday, Wednesday, Friday'),
+(12, 14, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
+(13, 15, '10:00:00', '11:30:00', 'Monday, Wednesday, Friday'),
+(13, 16, '13:00:00', '14:30:00', 'Tuesday, Thursday'),
+(14, 17, '08:00:00', '09:30:00', 'Monday, Wednesday, Friday'),
+(14, 18, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
+(15, 19, '10:00:00', '11:30:00', 'Monday, Wednesday, Friday'),
+(15, 20, '13:00:00', '14:30:00', 'Tuesday, Thursday');
 
 -- Message Data
 INSERT INTO Messages (StudentID, ProfessorID, MessageTitle, MessageBody)
 VALUES
-(1, 1, 'Hello Harold', 'It is nice to meet you Harold.'),
-(1, 1, 'Hold On Your Account', 'Hello Harold, we have placed an advising hold on your account stopping you from registering for classes. Please schedule an appointment meeting with your advisior to clear the hold.');
+(1, 1, 'Hello Harold', 'It is nice to meet you!'),
+(1, 1, 'Hold On Your Account', 'Hello Harold, we have placed an advising hold on your account stopping you from registering for classes. Please schedule an appointment meeting with your advisior to clear the hold.'),
+(2, 6, 'Welcome to Calculus II', 'Becky, welcome to Calculus II. I look forward to a great semester together!'),
+(3, 9, 'Your Course Enrollment', 'Harold, you are enrolled in Mechanical Engineering this semester. Please ensure you are prepared for your courses.'),
+(4, 12, 'Physics I - Lab Schedule', 'James, please be aware that your Physics I lab schedule is available. Let me know if you have any questions.'),
+(5, 10, 'History Paper Due', 'Maria, just a reminder that your history paper is due next week. Please start working on it ahead of time.'),
+(6, 8, 'Business Course Materials', 'Robert, the textbooks for your Business course have been uploaded to the course portal. Be sure to check them out.'),
+(7, 14, 'Computer Science Office Hours', 'Emily, my office hours are available for any questions you may have regarding Computer Science. Please stop by!'),
+(8, 7, 'CS 101 - Midterm Results', 'Michael, your results for the midterm exam in CS 101 are posted. Please check the portal for your grade.'),
+(9, 5, 'Mathematics Tutoring', 'Sarah, we have tutoring available in the Mathematics department. Feel free to use this resource if needed!'),
+(10, 13, 'Physics II Assignment', 'William, please ensure that you submit your Physics II assignment by Friday. Let me know if you need any help.'),
+(11, 2, 'History Exam Preparation', 'First, as your History exam approaches, make sure to review the course material. Reach out if you need assistance.'),
+(12, 4, 'Business Course Feedback', 'Jessica, I wanted to give you feedback on your performance in the Business course. You’re doing well! Keep it up.'),
+(13, 11, 'Computer Science - Final Project', 'David, the final project for your Computer Science course will be assigned soon. Start preparing now!'),
+(14, 3, 'Mechanical Engineering Design Meeting', 'Elizabeth, our next Mechanical Engineering design meeting is on Thursday. Please come prepared with your project updates.');
