@@ -32,6 +32,25 @@ public class GradesImpl implements GradesDAO{
         jdbcTemplate.update(sql);
     }
 
+    public void addHold(int StudentId) {
+        String sql = "UPDATE Grades "+
+        "SET Hold= TRUE "+
+                "WHERE StudentID = ?";
+        jdbcTemplate.update(sql, studentsRowMapper(), StudentId);
+    }
+
+    public void removeHold(int StudentID) {
+        String sql = "UPDATE Students "+
+        "SET Hold= FALSE "+
+                "WHERE StudentID = ?";
+        jdbcTemplate.update(sql, studentsRowMapper(), StudentID);
+    }
+
+    public String getHoldStatus(int StudentID) {
+        String sql = "SELECT Hold FROM Students WHERE StudentID = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, StudentID);
+    }
+
     public List<Grades> findCompletedCourses(int StudentId) {
         
         String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name " +
@@ -60,7 +79,7 @@ public class GradesImpl implements GradesDAO{
     @Override
     public List<Grades> findByStudentId(int StudentId) {
         
-        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name " +
+        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name, Students.Hold " +
                 "FROM Grades " +
                 "JOIN Students ON Grades.StudentID = Students.StudentID " +
                 "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
@@ -70,9 +89,9 @@ public class GradesImpl implements GradesDAO{
     }
 
     @Override
-    public void updateGrades(int StudentId, int SectionId, String Grade) {
-        String sql = "UPDATE Grades SET Grade = ? WHERE StudentId = ?";
-        jdbcTemplate.update(sql, Grade, StudentId);
+    public void updateGrades(int StudentId, int CourseId, String Grade) {
+        String sql = "UPDATE Grades SET Grade = ? WHERE StudentId = ? AND CourseId = ?";
+        jdbcTemplate.update(sql, Grade, StudentId, CourseId);
     }
 
     private RowMapper<Grades> gradesRowMapper() {
@@ -88,4 +107,14 @@ public class GradesImpl implements GradesDAO{
         };
     }
 
+    private RowMapper<Students> studentsRowMapper() {
+        return (rs, rowNum) -> {
+            Students students = new Students();
+            students.setStudentID(rs.getInt("StudentID"));
+            students.setName(rs.getString("Name"));
+            students.setMajor(rs.getString("Major"));
+            students.setHold(rs.getBoolean("Hold"));
+            return students;
+        };
+    }
 }

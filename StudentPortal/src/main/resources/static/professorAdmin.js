@@ -1,78 +1,71 @@
-document.getElementById("studentSearchForm").addEventListener("submit", async function(e) {
+document.getElementById("studentSearchForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
     const urlData = new URLSearchParams(data);
 
-    const response = await fetch("/student-grades", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
-        body: urlData
-    })
+    try {
+        const response = await fetch("/student-grades", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: urlData
+        });
 
-    const result = await response.json();
-    displayGrades(result);
+        if (!response.ok) {
+            alert("Failed to fetch grades. Please try again.");
+            return;
+        }
 
-})
-
-document.getElementById("completeSemester").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const response = await fetch("/complete-semester", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
-    })
-
-})
+        const result = await response.json();
+        displayGrades(result);
+    } catch (error) {
+        console.error("Error fetching grades:", error);
+    }
+});
 
 function displayGrades(data) {
+    console.log(data);
 
-     console.log(data);
-     const groupedStudentData = data.reduce((acc, object) => {
+    const groupedStudentData = data.reduce((acc, object) => {
         if (!acc[object.studentID]) {
             acc[object.studentID] = [];
         }
-        acc[object.studentID].push(object.grade);
+        acc[object.studentID].push(object);
         return acc;
-     }, {});
+    }, {});
 
-    const dataDisplay = Object.entries(groupedStudentData).map(([studentID, grade]) => {
-        return `
-          <div class="container">
-            <p>Student ID: ${studentID}</p>
-            <p>Grades: ${grade.join(", ")}</p>
-          </div>
-        `
-    }).join("");
+    // Render grades
+    const dataDisplay = Object.entries(groupedStudentData)
+        .map(([studentID, grades]) => {
+            return `
+                <div class="container">
+                    <p><strong>Student ID:</strong> ${studentID}</p>
+                    ${grades
+                        .map(
+                            (g) => `
+                                <div class="grade-section">
+                                    <p>Course/Section ID: ${g.sectionID}</p>
+                                    <input type="text" class="grade-input"
+                                          data-student-id="${studentID}"
+                                          data-section-id="${g.sectionID}"
+                                          value="${g.grade}">
+                                    <button class="update-grade-button"
+                                            data-student-id="${studentID}"
+                                            data-section-id="${g.sectionID}">
+                                            Update Grade
+                                    </button>
+                                </div>
+                            `
+                        )
+                        .join("")}
+                </div>
+            `;
+        })
+        .join("");
 
     document.getElementById("gradesDisplay").innerHTML = dataDisplay;
 
-}
-
-async function getStudents(){
-
-    const response = await fetch("/get-students", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
-    })
-
-    const result = await response.json();
-    displayStudents(result);
-}
-
-function displayStudents(data) {
-    let dataDisplay = data.map((object) => {
-        return `
-        <div class="container">
-            <p>Course: ${object.courseName}</p>
-            <p>Student Name: ${object.studentName}</p>
-            <p>Student ID: ${object.studentID}</p>
-            <p>Student Grade: ${object.grade}</p>
-        </div>
-        `
-    }).join("");
-
-    document.getElementById("studentsDisplay").innerHTML = dataDisplay;
-
-}
+    document.querySelectorAll(".update-grade-button").forEach((button) => {
+        button.addEventListener("click", async function () {
+            const studentID = this.dataset.studentId;

@@ -17,10 +17,13 @@ public class Students {
 
     private String Major;
 
-    public Students(int StudentID, String Name, String Major) {
+    private Boolean Hold;
+
+    public Students(int StudentID, String Name, String Major, Boolean Hold) {
         this.StudentID = StudentID;
         this.Name = Name;
         this.Major = Major;
+        this.Hold = Hold;
     }
 
     public Students() {
@@ -48,6 +51,14 @@ public class Students {
 
     public void setMajor(String major) {
         Major = major;
+    }
+
+    public Boolean getHold() {
+        return Hold;
+    }
+
+    public void setHold(Boolean hold) {
+        Hold = hold;
     }
 
     @Override

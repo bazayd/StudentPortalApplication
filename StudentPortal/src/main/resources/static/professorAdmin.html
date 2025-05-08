@@ -20,6 +20,20 @@
 
     <div id="gradesDisplay"></div>
 
+    <h2>Modify Student Hold:</h2>
+
+    <div id="holdSection">
+        <form id="fetchHoldForm">
+            <label for="holdStudentID">Student ID:</label>
+            <input type="text" id="holdStudentID" name="StudentID">
+            <button type="submit">Check Hold Status</button>
+        </form>
+        <div id="holdStatusDisplay"></div>
+
+        <button id="addHoldButton" style="display: none;">Add Hold</button>
+        <button id="removeHoldButton" style="display: none;">Remove Hold</button>
+    </div>
+
     <h2>End Semester:</h2>
     <form id="completeSemester">
         <button type="FinishSemester">Complete Semester</button>
@@ -27,6 +41,7 @@
 
     <script src="professorAdmin.js"></script>
     <script>getStudents()</script>
+
 </body>
 
 </html>
