@@ -1,3 +1,25 @@
+.Centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.CenteredContent {
+  width: 800px;
+  height: 300px;
+  text-align: center;
+}
+
+.Section-Container {
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 ul {
     list-style-type: none;
     margin: 0;

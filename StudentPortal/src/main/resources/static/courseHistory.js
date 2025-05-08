@@ -17,7 +17,7 @@ async function loadCompletedCourses(){
 function displayCompletedCourses(data) {
     let dataDisplay = data.map((object) => {
         return `
-        <div class="container">
+        <div class="Section-Container">
             <p>Course: ${object.courseName}</p>
             <p>Student Name: ${object.studentName}</p>
             <p>Student ID: ${object.studentID}</p>

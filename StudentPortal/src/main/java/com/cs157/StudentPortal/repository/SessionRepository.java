@@ -39,6 +39,7 @@ public class SessionRepository {
 
 
     public Integer studentRegister(String name, String major, String password) { 
+        // Create new Student Entry and return the AUTO INCREMENT Key generated at this addition
         String sql = "INSERT INTO Students (Name, Major, Password) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int count = jdbcTemplate.update(connection -> {
@@ -59,6 +60,7 @@ public class SessionRepository {
     }
 
     public Integer professorRegister(String name, String department, String password) {
+        // Create new Professor Entry and return the AUTO INCREMENT Key generated at this addition
         String sql = "INSERT INTO Professors (Name, Department, Password) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int count = jdbcTemplate.update(connection -> {

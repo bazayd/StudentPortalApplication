@@ -20,23 +20,26 @@ public class CoursesImpl implements CoursesDAO{
     }
 
     public List<Sections> getCourseBySearch(Boolean InMajor, Boolean MeetPrereq, String CourseName, int StudentID){
+        // Get the student object
         Students caller = students.getStudentById(StudentID);
-        int InMajorSQL = (InMajor != null && InMajor) ? 1 : 0;
+        // Create boolean operators for sql filter query
+        int InMajorSQL = (InMajor != null && InMajor) ? 1 : 0;  
         int MeetPrereqSQL = (MeetPrereq != null && MeetPrereq) ? 1 : 0;
 
         String sql = "SELECT Sections.SectionID, Courses.CourseID, Courses.CourseName, Courses.CourseMajor, Courses.CourseUnits, Courses.CourseTitle, Courses.CourseDescription, Professors.Name, Sections.DaysOfWeek, Sections.StartTime, Sections.EndTime "
         +"FROM Sections "
         +"INNER JOIN Courses ON Sections.CourseID = Courses.CourseID "
-        +"Inner JOIN Professors ON Sections.ProfessorID = Professors.ProfessorID "
+        +"Inner JOIN Professors ON Sections.ProfessorID = Professors.ProfessorID "  // Inner join all relevant tables for necessary information
         +"WHERE Courses.CourseName LIKE ? " // CourseName Search
         +"AND (?!=1 OR Courses.CourseMajor=?) " // InMajor Search
-        +"AND (?!=1 OR "
-            +"(SELECT count(1) FROM Requisites WHERE Requisites.ThisCourseID = Sections.CourseID) "
-            +"=(SELECT count(1) FROM Requisites WHERE Requisites.ThisCourseID = Sections.CourseID AND RequiresCourseID IN ( "
+        +"AND (?!=1 OR "    // Perform prerequisite check
+            +"(SELECT count(1) FROM Requisites WHERE Requisites.ThisCourseID = Sections.CourseID) " // Get the number of prerequisites
+            +"=(SELECT count(1) FROM Requisites WHERE Requisites.ThisCourseID = Sections.CourseID AND RequiresCourseID IN ( "   // Get the number of prerequisets student fufils make sure this and number above are equal
                 +"SELECT Sections.CourseID FROM Grades INNER JOIN Sections ON Sections.CourseID = Grades.CourseID WHERE Grades.StudentID = ? AND Completed=True AND Grade != 'F' AND Grade != 'NC')) "
         +")";
 
-        CourseName = "%"+CourseName+"%";
+        CourseName = "%"+CourseName+"%";    // Add string matching characters to CourseName input
+
         return jdbcTemplate.query(sql, sectionsRowMapper(), CourseName, InMajorSQL, caller.getMajor(), MeetPrereqSQL, StudentID);
     }
 

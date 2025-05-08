@@ -63,7 +63,7 @@ function displayGrades(data, studentID) {
     
     let dataDisplay = data.map((object) => {
         return `
-            <div class="container">
+            <div class="Section-Container">
                 <p>Course Name: ${object.courseName}</p>
                 <p>Grade: ${object.grade}</p>
                 <input id="newGrade-${object.courseID}-${object.studentID}" type="text" id="newGrade" name="newGrade">
@@ -102,7 +102,7 @@ async function getStudents(){
 function displayStudents(data) {
     let dataDisplay = data.map((object) => {
         return `
-        <div class="container">
+        <div class="Section-Container">
             <p>Course: ${object.courseName}</p>
             <p>Student Name: ${object.studentName}</p>
             <p>Student ID: ${object.studentID}</p>

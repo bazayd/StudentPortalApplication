@@ -25,6 +25,7 @@ public class EnrollmentImpl implements CoursesDAO{
 
 
     public List<Sections> getRegistered(int StudentID){
+        // Retrieve all courses the user is registered too
         String sql = "SELECT Sections.SectionID, Courses.CourseID, Courses.CourseName, Courses.CourseMajor, Courses.CourseUnits, Courses.CourseTitle, Courses.CourseDescription, Professors.Name, Sections.DaysOfWeek, Sections.StartTime, Sections.EndTime "
         +"FROM Enrollment "
         +"INNER JOIN Sections ON Enrollment.SectionID = Sections.SectionID "
@@ -114,9 +115,7 @@ public class EnrollmentImpl implements CoursesDAO{
         // Insert New Enrollment
         sql = "INSERT INTO Enrollment (StudentID, SectionID) VALUES (?,?)";
         count = jdbcTemplate.update(sql, StudentID, SectionID);
-        
-        // Insert New Grade
-        
+
 
         returnMessage+="Successfully Registered New Section!";
         return returnMessage;
