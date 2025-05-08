@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <title>Student Dashboard</title>
 </head>
 <body>
-    <h1>Welcome to Your Student Dashboard</h1>
-    <h2>View your account details and notifications</h2>
+  <ul>
+    <li class="home"><a href="/">Home</a></li>
+    <li class="active dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Register</a>
+        <div class="dropdown-content">
+          <a href="/studentRegister">Student Register</a>
+          <a href="/professorRegister">Professor Register</a>
+        </div>
+    </li>
+    <li class="active dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="/studentLogin">Student Login</a>
+          <a href="/professorLogin">Professor Login</a>
+        </div>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Professor</a>
+      <div class="dropdown-content">
+        <a href="/admin">Control Panel</a>
+        <a href="/professorMessaging">Messaging</a>
+      </div>
+  </li>
+  <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Student</a>
+      <div class="dropdown-content">
+        <a href="/courses">Register</a>
+        <a href="/messages">Inbox</a>
+        <a href="/courseHistory">Course History</a>
+      </div>
+  </li>
+  <li style="float:right"><a id="UserName"></a></li>
+  <li style="float:right"><a id="UserID"></a></li>
+</ul>
+<h1>View Your Student Information:</h1>
+<h2></h2>
+    <h1>View Your Student Information:</h1>
+    <h2></h2>
 
-    <body>
-        <h3>Students:</h3>
-        <h3><a href="/courses">Register For Courses</a></h3>
-        <h3><a href="/messages">View Your Student Messages</a></h3>
-        <h3><a href="/courseHistory">View Your Completed Courses</a></h3>
-        <h4><a href="/studentLogin">Login</a></h3>
-        <h4><a href="/studentRegister">Register</a></h3>
-        <h3>Professors:</h3>
-        <h4><a href="/admin">View Student Grades</a></h3>
-        <h4><a href="/professorMessaging">Send Messages</a></h3>
-        <h4><a href="/professorLogin">Login</a></h3>
-        <h4><a href="/professorRegister">Register</a></h3>
-    </body>
-
-    
+    <script src="session.js"></script>
+    <script>populateUserData()</script>
 </body>
 </html>

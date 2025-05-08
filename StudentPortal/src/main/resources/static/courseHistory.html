@@ -1,10 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <title>Student Course History</title>
 </head>
 <body>
+  <ul>
+    <li class="home"><a href="/">Home</a></li>
+    <li class="active dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Register</a>
+        <div class="dropdown-content">
+          <a href="/studentRegister">Student Register</a>
+          <a href="/professorRegister">Professor Register</a>
+        </div>
+    </li>
+    <li class="active dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="/studentLogin">Student Login</a>
+          <a href="/professorLogin">Professor Login</a>
+        </div>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Professor</a>
+      <div class="dropdown-content">
+        <a href="/admin">Control Panel</a>
+        <a href="/professorMessaging">Messaging</a>
+      </div>
+  </li>
+  <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Student</a>
+      <div class="dropdown-content">
+        <a href="/courses">Register</a>
+        <a href="/messages">Inbox</a>
+        <a href="/courseHistory">Course History</a>
+      </div>
+  </li>
+  <li style="float:right"><a id="UserName"></a></li>
+  <li style="float:right"><a id="UserID"></a></li>
+</ul>
+<h1>View Your Student Information:</h1>
+<h2></h2>
     <h1>Student Course History</h1>
     <h2>View The Courses You Completed And The Grades You Recieved In Past Semesters:</h2>
 
@@ -12,5 +49,6 @@
 
     <script src="courseHistory.js"></script>
     <script>loadCompletedCourses()</script>
+    <script src="session.js"></script>
 </body>
 </html>

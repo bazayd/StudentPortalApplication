@@ -14,13 +14,15 @@ function populateUserData(){
     getStudentSession().then((student) => {
         // Input Student Data
         if(student!=0){
-            document.getElementById("StudentSessionJSON").textContent = JSON.stringify(student);
+            document.getElementById("UserName").textContent = student.name;
+            document.getElementById("UserID").textContent = student.studentID;
         }
     })
     getProfessorSession().then((professor) => {
         // Input Professor Data
         if(professor!=0){
-            document.getElementById("ProfessorSessionJSON").textContent = JSON.stringify(professor);
+            document.getElementById("UserName").textContent = professor.name;
+            document.getElementById("UserID").textContent = professor.professorID;
         }  
     })
 }
