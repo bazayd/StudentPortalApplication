@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS Grades(
 	StudentID INT NOT NULL,
     CourseID INT NOT NULL,
     Grade CHAR(25) DEFAULT 'NC',
-    Units SMALLINT NOT NULL DEFAULT 3,
     Completed Boolean NOT NULL DEFAULT FALSE,
     PRIMARY KEY (StudentID, CourseID)
 );
@@ -64,12 +63,43 @@ CREATE TABLE IF NOT EXISTS Requisites(
     PRIMARY KEY (ThisCourseID,RequiresCourseID)
 );
 
+-- Student Data
+INSERT INTO Students (Name, Password, Major)
+VALUES
+('Harold Lawrence', 'Password', 'Computer Science'),
+('Becky Thomas', 'Password', 'Math'),
+('Harold Lawrence', 'Password', 'Mechanical Engineering'),
+('James Smith', 'Password', 'Physics'),
+('Maria Johnson', 'Password', 'History'),
+('Robert Brown', 'Password', 'Buisness'),
+('Emily Davis', 'Password', 'Computer Science'),
+('Michael Miller', 'Password', 'Computer Science'),
+('Sarah Wilson', 'Password', 'Math'),
+('William Moore', 'Password', 'Physics'),
+('First Last', 'Password', 'Major'),
+('Jessica Taylor', 'Password', 'History'),
+('David Anderson', 'Password', 'Buisness'),
+('Elizabeth Thomas', 'Password', 'Computer Science'),
+('Christopher Lee', 'Password', 'Mechanical Engineering');
 
 -- Professor Data
 INSERT INTO Professors (Name, Password, Department) 
 VALUES 
-('Dr. John Smith', 'asdf', 'Computer Science'),
-('Dr. Emily Johnson', 'asdf', 'Mathematics');
+('Dr. John Smith', 'Password', 'Computer Science'),
+('Dr. Emily Johnson', 'Password', 'Mathematics'),
+('Dr. Alison Caster', 'Password', 'Buisness'),
+('Dr. Sarah Mitchell', 'Password', 'Physics'),
+('Dr. William Brown', 'Password', 'History'),
+('Dr. Robert Davis', 'Password', 'Mechanical Engineering'),
+('Dr. Jessica White', 'Password', 'Computer Science'),
+('Dr. David Lee', 'Password', 'Business'),
+('Dr. Emily Taylor', 'Password', 'Mathematics'),
+('Dr. Michael Clark', 'Password', 'Physics'),
+('Dr. Elizabeth Moore', 'Password', 'History'),
+('Dr. Christopher Anderson', 'Password', 'Business'),
+('Dr. Maria Walker', 'Password', 'Computer Science'),
+('Dr. James Harris', 'Password', 'Mechanical Engineering'),
+('Dr. Becky Robinson', 'Password', 'Mathematics');
 
 -- Course Data
 INSERT INTO Courses (CourseName, CourseMajor, CourseUnits, CourseTitle, CourseDescription) 
@@ -97,11 +127,6 @@ VALUES
 (4, 1, '09:00:00', '10:30:00', 'Monday, Wednesday, Friday'),
 (4, 2, '11:00:00', '12:30:00', 'Tuesday, Thursday'),
 (5, 1, '11:00:00', '12:30:00', 'Tuesday, Thursday');
-
--- Student Data
-INSERT INTO Students (Name, Password, Major)
-VALUES
-('Harold Lawrence', 'asdf', 'Computer Science');
 
 -- Message Data
 INSERT INTO Messages (StudentID, ProfessorID, MessageTitle, MessageBody)

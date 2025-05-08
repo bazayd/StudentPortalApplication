@@ -66,7 +66,7 @@ public class GradesImpl implements GradesDAO{
 
     public List<Grades> findCompletedCourses(int StudentId) {
         // Only Return grades which have the completed attribute as true
-        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name " +
+        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Courses.CourseUnits, Students.Name " +
                 "FROM Grades " +
                 "JOIN Students ON Grades.StudentID = Students.StudentID " +
                 "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
@@ -77,7 +77,7 @@ public class GradesImpl implements GradesDAO{
 
     public List<Grades> findProfessorStudents(int ProfessorID) {
         // Merge all necessary tables for all needed information, order by the section so that each class is grouped together
-        String sql = "SELECT Courses.CourseName, Students.Name, Students.StudentID, Grades.CourseID, Grades.Grade, Grades.Units " +
+        String sql = "SELECT Courses.CourseName, Students.Name, Students.StudentID, Grades.CourseID, Grades.Grade, Courses.CourseUnits " +
                 "FROM Sections " +
                 "JOIN Enrollment ON Enrollment.SectionID = Sections.SectionID " +
                 "JOIN Students ON Students.StudentID = Enrollment.StudentID " +
@@ -93,7 +93,7 @@ public class GradesImpl implements GradesDAO{
     @Override
     public List<Grades> findByStudentId(int StudentId) {
         // Left JOIN grades so that if no grade has been entered yet we can still view it on frontend and set a grade (which will in turn create a grade)
-        String sql = "SELECT Courses.CourseName, Enrollment.StudentId, Sections.CourseId, Grades.Grade, Grades.Units, Students.Name " +
+        String sql = "SELECT Courses.CourseName, Enrollment.StudentId, Sections.CourseId, Grades.Grade, Courses.CourseUnits, Students.Name " +
                 "FROM Enrollment " +
                 "JOIN Sections ON Enrollment.SectionID = Sections.SectionID " +
                 "LEFT JOIN Grades ON Grades.CourseID = Sections.CourseID AND Grades.StudentID = Enrollment.StudentID " +
@@ -119,7 +119,7 @@ public class GradesImpl implements GradesDAO{
             grades.setStudentID(rs.getInt("StudentID"));
             grades.setCourseID(rs.getInt("CourseID"));
             grades.setGrade(rs.getString("Grade"));
-            grades.setUnits(rs.getInt("Units"));
+            grades.setUnits(rs.getInt("CourseUnits"));
             return grades;
         };
     }
