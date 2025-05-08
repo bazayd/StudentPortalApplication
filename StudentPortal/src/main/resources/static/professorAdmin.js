@@ -12,9 +12,45 @@ document.getElementById("studentSearchForm").addEventListener("submit", async fu
     })
 
     const result = await response.json();
-    displayGrades(result);
+    displayGrades(result,urlData);
 
 })
+
+async function updateGrade(courseID, studentID){
+    var newGrade = document.getElementById("newGrade-"+courseID+"-"+studentID).value;
+
+    urlData = new URLSearchParams({ 'CourseID': courseID, 'StudentID': studentID, 'NewGrade': newGrade });
+
+    const response = await fetch("/modify-grade", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+        body: urlData
+    })
+
+    const result = await response.json();
+
+}
+
+
+function displayGrades(data) {
+
+    console.log(data);
+    
+    let dataDisplay = data.map((object) => {
+        return `
+            <div class="container">
+                <p>Course Name: ${object.courseName}</p>
+                <p>Grade: ${object.grade}</p>
+                <input id="newGrade-${object.courseID}-${object.studentID}" type="text" id="newGrade" name="newGrade">
+                <button onclick="updateGrade(${object.courseID},${object.studentID})">Update Grade</button>
+                </form>
+            </div>
+        `
+    }).join("");
+
+    document.getElementById("gradesDisplay").innerHTML = dataDisplay;
+
+}
 
 document.getElementById("completeSemester").addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -25,30 +61,6 @@ document.getElementById("completeSemester").addEventListener("submit", async fun
     })
 
 })
-
-function displayGrades(data) {
-
-     console.log(data);
-     const groupedStudentData = data.reduce((acc, object) => {
-        if (!acc[object.studentID]) {
-            acc[object.studentID] = [];
-        }
-        acc[object.studentID].push(object.grade);
-        return acc;
-     }, {});
-
-    const dataDisplay = Object.entries(groupedStudentData).map(([studentID, grade]) => {
-        return `
-          <div class="container">
-            <p>Student ID: ${studentID}</p>
-            <p>Grades: ${grade.join(", ")}</p>
-          </div>
-        `
-    }).join("");
-
-    document.getElementById("gradesDisplay").innerHTML = dataDisplay;
-
-}
 
 async function getStudents(){
 

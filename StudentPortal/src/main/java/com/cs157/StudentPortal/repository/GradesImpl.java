@@ -21,6 +21,19 @@ public class GradesImpl implements GradesDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public boolean updateGrade(int CourseID, int StudentID, String NewGrade) {
+        if(!"ABCDFNC".contains(NewGrade)){
+            return false;
+        }
+        String sql = "INSERT INTO Grades (CourseID, StudentID, Grade) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                        "Grade = VALUES(Grade)"; 
+
+        jdbcTemplate.update(sql, CourseID, StudentID, NewGrade);
+        return true;
+    }
+
     public void completeSemester(){
         // Complete all grades
         String sql = "UPDATE Grades "+
@@ -60,11 +73,14 @@ public class GradesImpl implements GradesDAO{
     @Override
     public List<Grades> findByStudentId(int StudentId) {
         
-        String sql = "SELECT Courses.CourseName, Grades.StudentId, Grades.CourseId, Grades.Grade, Grades.Units, Students.Name " +
-                "FROM Grades " +
-                "JOIN Students ON Grades.StudentID = Students.StudentID " +
-                "JOIN Courses ON Courses.CourseID = Grades.CourseID " +
-                "WHERE Grades.StudentID = ? AND Grades.Completed=FALSE";
+        String sql = "SELECT Courses.CourseName, Enrollment.StudentId, Sections.CourseId, Grades.Grade, Grades.Units, Students.Name " +
+                "FROM Enrollment " +
+                "JOIN Sections ON Enrollment.SectionID = Sections.SectionID " +
+                "LEFT JOIN Grades ON Grades.CourseID = Sections.CourseID AND Grades.StudentID = Enrollment.StudentID " +
+                "JOIN Students ON Enrollment.StudentID = Students.StudentID " +
+                "JOIN Courses ON Sections.CourseID = Courses.CourseID " +
+                "WHERE Enrollment.StudentID=? " +
+                "ORDER BY Grades.StudentID, Courses.CourseID";
         
         return jdbcTemplate.query(sql, gradesRowMapper(), StudentId);
     }

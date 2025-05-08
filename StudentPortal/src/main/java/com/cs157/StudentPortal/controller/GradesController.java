@@ -30,6 +30,16 @@ public class GradesController {
         repository.completeSemester();
     }
 
+    @PostMapping("/modify-grade")
+    public boolean updateGrade(@RequestParam("CourseID") int CourseID, @RequestParam("StudentID") int StudentID, @RequestParam("NewGrade") String NewGrade, HttpSession session){
+        var id = session.getAttribute("sessionProfessorID");
+        if(id==null || !sessions.validateProfessorID((int)id)){
+            return false;
+        }
+
+        return repository.updateGrade(CourseID, StudentID, NewGrade);
+    }
+
     @PostMapping("/student-grades")
     public List<Grades> getGradesByStudentId(@RequestParam("StudentID") int StudentID, HttpSession session) {
         var id = session.getAttribute("sessionProfessorID");
