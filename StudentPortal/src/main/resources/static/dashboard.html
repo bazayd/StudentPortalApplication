@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
-    <title>Student Portal</title>
+    <title>Student Dashboard</title>
 </head>
 <body>
   <ul>
@@ -41,10 +41,16 @@
     <li style="float:right"><a id="UserID"></a></li>
   </ul>
 
-    <h1>Welcome to Student Portal</h1>
-    <h2>Student Portal H2</h2>
-
-    <script src="session.js"></script>
-    <script>populateUserData()</script>
+  <div class="Centered">
+    <div class="CenteredContent">
+      <h1><u>Student Portal Webapplication:</u></h1>
+      <h2>Inerface With Your School Account, View Messages From Instructors, And Register For Courses</h2>
+      <h3>Students: <a href="/studentLogin">Login</a> | <a href="/studentRegister">Register</a></h3>
+      <h3>Professors: <a href="/professorLogin">Login</a> | <a href="/professorRegister">Register</a></h3>
+    </div>
+  </div>
+  
+  <script src="session.js"></script>
+  <script>populateUserData()</script>
 </body>
 </html>

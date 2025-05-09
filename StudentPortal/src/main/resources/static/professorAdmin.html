@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
-    <title>Student Portal</title>
+    <title>Professor Administrator</title>
 </head>
 <body>
   <ul>
@@ -41,10 +41,31 @@
     <li style="float:right"><a id="UserID"></a></li>
   </ul>
 
-    <h1>Welcome to Student Portal</h1>
-    <h2>Student Portal H2</h2>
+    <h1>Professor Dashboard</h1>
+    <h2>Your Students:</h2>
+    <div id="studentsDisplay"></div>
 
+    <h2>Modify Student Grades And Holds:</h2>
+    <body>
+        <form id="studentSearchForm">
+            <label for="StudentID">Student ID:</label>
+            <input type="text" id="StudentID" name="StudentID">
+            <button type="Submit">Search</button>
+        </form>
+    </body>
+
+    <div id="holdsDisplay"></div>
+    <div id="gradesDisplay"></div>
+
+    <h2>End Semester:</h2>
+    <form id="completeSemester">
+        <button type="FinishSemester">Complete Semester</button>
+    </form>
+
+    <script src="professorAdmin.js"></script>
+    <script>getStudents()</script>
     <script src="session.js"></script>
     <script>populateUserData()</script>
 </body>
+
 </html>

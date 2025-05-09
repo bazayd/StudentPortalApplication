@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Professor Messaging</title>
+</head>
+<body>
+    <ul>
+        <li class="home"><a href="/">Home</a></li>
+        <li class="active dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Register</a>
+            <div class="dropdown-content">
+              <a href="/studentRegister">Student Register</a>
+              <a href="/professorRegister">Professor Register</a>
+            </div>
+        </li>
+        <li class="active dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Login</a>
+            <div class="dropdown-content">
+              <a href="/studentLogin">Student Login</a>
+              <a href="/professorLogin">Professor Login</a>
+            </div>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Professor</a>
+          <div class="dropdown-content">
+            <a href="/admin">Control Panel</a>
+            <a href="/professorMessaging">Messaging</a>
+          </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Student</a>
+            <div class="dropdown-content">
+                <a href="/courses">Register</a>
+                <a href="/messages">Inbox</a>
+                <a href="/courseHistory">Course History</a>
+            </div>
+        </li>
+        <li style="float:right"><a id="UserName"></a></li>
+        <li style="float:right"><a id="UserID"></a></li>
+    </ul>
+    
+    <h1>Professor Messaging</h1>
+    <h2>Send Messages To Students:</h2>
+    <form id="professorMessage">
+        <label for="recipientStudentID">Recipient Student ID:</label>
+        <input type="text" id="recipientStudentID" name="recipientStudentID"><br><br>
+        <label for="messageTitle">Message Title:</label>
+        <input type="text" id="messageTitle" name="messageTitle"><br><br>
+        <label for="messageBody">Your Message:</label><br>
+        <textarea id="messageBody" name="messageBody" rows="20" cols="100" placeholder="Enter your message here..."></textarea><br><br>
+        <button type="submit">Send</button>
+    </form>
+
+
+
+    <script>
+        document.getElementById("professorMessage").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            const urlData = new URLSearchParams(data);
+
+            const response = await fetch("/professor-message", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: urlData
+            });
+            
+            
+            if(response.ok){
+                alert("Message Sent Successfully!");
+            } else {
+                alert("Error Occurred In Sending Message!");
+            }
+        });
+    </script>
+    <script src="session.js"></script>
+    <script>populateUserData()</script>
+</body>
+
+</html>

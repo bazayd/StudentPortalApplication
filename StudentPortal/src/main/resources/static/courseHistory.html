@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
-    <title>Student Portal</title>
+    <title>Student Course History</title>
 </head>
 <body>
   <ul>
@@ -40,10 +40,14 @@
     <li style="float:right"><a id="UserName"></a></li>
     <li style="float:right"><a id="UserID"></a></li>
   </ul>
+  
+    <h1>Student Course History</h1>
+    <h2>View The Courses You Completed And The Grades You Recieved In Past Semesters:</h2>
 
-    <h1>Welcome to Student Portal</h1>
-    <h2>Student Portal H2</h2>
+    <div id="coursesDisplay"></div>
 
+    <script src="courseHistory.js"></script>
+    <script>loadCompletedCourses()</script>
     <script src="session.js"></script>
     <script>populateUserData()</script>
 </body>
