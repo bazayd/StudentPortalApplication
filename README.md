@@ -43,7 +43,9 @@ You can also run the comman in the terminal: ``` mvn clean install ```
 ### Step 4: Deploy the Application
 The final step is to deploy and run the application, which only requires a simple navigation to the 
 **StudentPortalApplication.java** file and running said file. 
-Within a IDE like VSCode you can open the Command Palette (Ctrl + Shift + P) and select **Java: Run Main Class**
+
+ However, instead of running through the StudentPortalApplication File you can open a new terminal and run:
+ ``` ./mvnw spring-boot:run ```
 
 ### Step 5: Running the Application
 Within the application you can use the default credentials as following for Students and Professors in order to 
